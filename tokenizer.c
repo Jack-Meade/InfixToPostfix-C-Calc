@@ -4,15 +4,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "token.c"
+
+#define BSIZE 201
 
 char *parse_file(char *filename) {
-
-}
-
-int main(int argc, char**argv) {
-
-	char buffer[201];
-	FILE *fp = fopen("input.txt", "r");
+    char *buffer = malloc(BSIZE);
+    FILE *fp = fopen("input.txt", "r");
     char c = 0;
     int bp = 0;
 
@@ -25,11 +23,18 @@ int main(int argc, char**argv) {
             default:
                 buffer[bp] = c;
                 bp ++;
-
         }
 
     }
 
-    printf("%s\n", buffer);
+    return buffer;
+}
+
+int main(int argc, char**argv) {
+    char *pstring = parse_file("input.text");
+    printf("%s\n", pstring);
+
+    /* convert to tokens */
+
 	return 0;
 }
