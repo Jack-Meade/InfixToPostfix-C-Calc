@@ -41,7 +41,7 @@ int main(int argc, char**argv) {
     token *tokens = malloc(BFSIZE * sizeof(token));
     int tp = 0;
 
-    while (pstring[pp] != EOF) {
+    while (pstring[pp] != '\0') {
         if (isdigit(pstring[pp]) || pstring[pp] == '.') {
             buffer[bp] = pstring[pp];
             pp ++; bp ++;
@@ -53,26 +53,33 @@ int main(int argc, char**argv) {
             if (isfloat)    { type = 'f'; }
             else            { type = 'i'; }
 
-            token *token1 = create_token(type, buffer);
-            tokens[tp] = *token1;
+            token *tokenNum = create_token(type, buffer);
+            tokens[tp] = *tokenNum;
+            tp ++;
+            printf("%i\n", tp);
 
             // TODO: token value expects string but operator is a char
-            token *token2 = create_token(type, pstring[pp]);
-            tokens[tp] = *token2;
+            token *tokenOp = create_token(pstring[pp], "op");
+            tokens[tp] = *tokenOp;
 
-            printToken(token1);
-            printToken(token2);
             tp ++; pp ++; bp = 0;
+            printf("%i\n", tp);
             memset(buffer,0,strlen(buffer));
             continue;
         }
 
     }
+    if (isfloat)    { type = 'f'; }
+    else            { type = 'i'; }
 
-    // while (tp) {
-    //     printToken(&tokens[tp]);
-    //     tp --;
-    // }
+    token *tokenNum = create_token(type, buffer);
+    tokens[tp] = *tokenNum;
+    // tp ++;
+
+    while (tp) {
+        printToken(&tokens[tp]);
+        tp --;
+    } printToken(&tokens[tp]);
 
 	return 0;
 }

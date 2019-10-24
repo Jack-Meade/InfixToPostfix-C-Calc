@@ -13,6 +13,6 @@ token *create_token(char type, char *value) {
     token *t = (token *)malloc(sizeof(token));
     t->type = type;
     t->value = malloc(strlen(value)+1);
-    t->value = value;
+    strcpy(t->value, value);
     return t;
 }
