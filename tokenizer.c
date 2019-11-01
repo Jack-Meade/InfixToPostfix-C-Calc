@@ -29,6 +29,10 @@ char *parse_file(char *filename) {
     return buffer;
 }
 
+char *convert_2_tokens() {
+
+}
+
 int main(int argc, char**argv) {
     char *pstring = parse_file("input.text");
     printf("%s\n", pstring);
@@ -56,14 +60,11 @@ int main(int argc, char**argv) {
             token *tokenNum = create_token(type, buffer);
             tokens[tp] = *tokenNum;
             tp ++;
-            printf("%i\n", tp);
 
-            // TODO: token value expects string but operator is a char
             token *tokenOp = create_token(pstring[pp], "op");
             tokens[tp] = *tokenOp;
 
             tp ++; pp ++; bp = 0;
-            printf("%i\n", tp);
             memset(buffer,0,strlen(buffer));
             continue;
         }
@@ -74,7 +75,6 @@ int main(int argc, char**argv) {
 
     token *tokenNum = create_token(type, buffer);
     tokens[tp] = *tokenNum;
-    // tp ++;
 
     while (tp) {
         printToken(&tokens[tp]);
