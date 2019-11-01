@@ -85,5 +85,5 @@ void print_token_array(token *tokens) {
 int main(int argc, char**argv) {
     token *tokens = convert_2_tokens("input.txt");
     print_token_array(tokens);
-	return 0;
+    return 0;
 }
