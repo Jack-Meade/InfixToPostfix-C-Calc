@@ -1,4 +1,4 @@
-// CS3500 Project - Tokenizer
+// CS3500 Project - Token
 // Conor Patrick Mc Donald, Daniels Leonards Bindemans, Jack Meade
 
 #include <string.h>
