@@ -3,9 +3,10 @@
 
 #include <string.h>
 
+// Defines Token struct
 typedef struct __token {
-    char type;          // Type: int, float, operator
-    char *value;        // Value: of type
+    char type;                                  // Type: (i)nt, (f)loat, (o)perator
+    char *value;                                // Value: string representing value of type
 } token;
 
 // Prints Token contents
@@ -17,7 +18,7 @@ void print_token(token *t) {
 token *create_token(char type, char *value) {
     token *t = (token *)malloc(sizeof(token));  // Token size is variable
     t->type = type;                             // Type indicated by single char
-    t->value = malloc(strlen(value)+1);         // Value size is length on string+1 for NULL char
+    t->value = malloc(strlen(value));           // Value size is length on string
     strcpy(t->value, value);                    // Have to copy otherwise Token value is tied to original string
     return t;
 }
