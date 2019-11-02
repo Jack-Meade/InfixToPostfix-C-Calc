@@ -47,7 +47,7 @@ filedata *parse_file(char *filename) {
                 }
         }
     }
-    fd->num_of_tokens++;                                            // Used to indicate end of array
+    fd->num_of_tokens += 2;                                         // Used for last num & to indicate end of array
     return fd;
 }
 
@@ -64,12 +64,12 @@ token *convert_2_tokens(char *filename) {
     int tp = -1;                                                    // Pointer to current position on array of tokens
 
     while (fd->pstring[++pp] != '\0') {                             // While haven't reached end of string
-        if (isdigit(fd->pstring[pp]) || fd->pstring[pp] == '.') {   // If char is a digit or decimal point
+        if (isdigit(fd->pstring[pp]) || fd->pstring[pp] == '.') {   // - If char is a digit or decimal point
             buffer[++bp] = fd->pstring[pp];                         // Put char into next position in buffer
 
             if (fd->pstring[pp] == '.') { isfloat = 1; }            // If char is a decimal point, buffer contains float
 
-        } else {
+        } else {                                                    // - Else we have an operator
             if (isfloat)    { cur_token = create_token('f', buffer); }
             else            { cur_token = create_token('i', buffer); }
             tokens[++tp] = *cur_token;                              // Put token into next position in array
@@ -89,7 +89,7 @@ token *convert_2_tokens(char *filename) {
     // Need to convert final number as operators are used as breakpoints, and there are no operators at end of string
     if (isfloat)    { cur_token = create_token('f', buffer); }
     else            { cur_token = create_token('i', buffer); }
-    tokens[tp] = *cur_token;
+    tokens[++tp] = *cur_token;
 
     return tokens;
 }
