@@ -55,12 +55,12 @@ filedata *parse_file(char *filename) {
 token *convert_2_tokens(char *filename) {
     filedata *fd = parse_file(filename);
 
-    char *buffer = malloc(BTSIZE);
+    char *buffer = malloc(BTSIZE);                                  // Buffer for current token
     int bp = -1;                                                    // Pointer to current position on buffer
     int pp = -1;                                                    // Pointer to current position on formatted string
     int isfloat = 0;                                                // Keeps track if buffer contains int or float
     token *cur_token;
-    token *tokens = malloc(fd->num_of_tokens * sizeof(token));      // Array will need total buffer * size of a token
+    token *tokens = malloc(fd->num_of_tokens * sizeof(token));      // Array will need num of tokens * size of a token
     int tp = -1;                                                    // Pointer to current position on array of tokens
 
     while (fd->pstring[++pp] != '\0') {                             // While haven't reached end of string
