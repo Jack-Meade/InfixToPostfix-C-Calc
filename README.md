@@ -66,7 +66,7 @@ The Code Generator will expect this array and can read each item in it to genera
 will know to load integers/floats by reading the token’s type attribute. It can read operators by
 the token type/value and generate their appropriate arithmetic instruction.
 
-## Code Generator → VM
+## Code Generator -> VM
 The Code Generator will output an array of string instructions.
 Each item in the Code Generator array will be an instruction on what the VM should do, such
 as LOADINT or ADD. The VM can read these and perform the instructions by having it follow
