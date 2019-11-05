@@ -6,7 +6,7 @@
 #include <string.h>
 #include <math.h>
 
-int main(int argc, char**argv) {
+float execute(char *filename) {
     FILE *fp;
     char *line;
     char *instruction;
@@ -14,14 +14,13 @@ int main(int argc, char**argv) {
     ssize_t op = -1;
     size_t len = 0;
     ssize_t read;
-    fp = fopen("code.txt", "r");
+    fp = fopen(filename, "r");
 
     if (fp == NULL) { exit(1); }
 
     while ((read = getline(&line, &len, fp)) != EOF) {
         if (read != 4) {
             instruction = strsep(&line, " ");
-
             instruction = strsep(&line, " ");
             instruction[strcspn(instruction, "\n")] = 0;
 
@@ -34,9 +33,13 @@ int main(int argc, char**argv) {
             else if (strcmp(line, "DIV\n") == 0) { operands[op-1] =     operands[op-1] / operands[op]; op--; }
         }
     }
-    printf("%4.2f\n", operands[op]);
-
     free(line);
     fclose(fp);
+    return operands[op];
+}
+
+int main(int argc, char**argv) {
+    float result = execute("code.txt");
+    printf("%4.2f\n", result);
     return 0;
 }
