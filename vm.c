@@ -4,11 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char**argv) {
     FILE *fp;
     char *line;
     char *instruction;
+    double operands[100];
+    ssize_t op = -1;
     size_t len = 0;
     ssize_t read;
     fp = fopen("code.txt", "r");
@@ -17,16 +20,21 @@ int main(int argc, char const *argv[]) {
 
     while ((read = getline(&line, &len, fp)) != EOF) {
         if (read != 4) {
-            while( (instruction = strsep(&line, " ")) != NULL ) {
-                printf("%s\n", instruction);
-            }
+            instruction = strsep(&line, " ");
+
+            instruction = strsep(&line, " ");
+            instruction[strcspn(instruction, "\n")] = 0;
+
+            operands[++op] = strtof(instruction, NULL);
         } else {
-            printf("%s\n", line);
+            if      (strcmp(line, "EXP\n") == 0) { operands[op-1] = pow(operands[op-1], operands[op]); op--; }
+            else if (strcmp(line, "ADD\n") == 0) { operands[op-1] =     operands[op-1] + operands[op]; op--; }
+            else if (strcmp(line, "SUB\n") == 0) { operands[op-1] =     operands[op-1] - operands[op]; op--; }
+            else if (strcmp(line, "MUL\n") == 0) { operands[op-1] =     operands[op-1] * operands[op]; op--; }
+            else if (strcmp(line, "DIV\n") == 0) { operands[op-1] =     operands[op-1] / operands[op]; op--; }
         }
     }
-
-    // TODO: Able to parse instructions
-    //       need to operate on operands
+    printf("%4.2f\n", operands[op]);
 
     free(line);
     fclose(fp);
