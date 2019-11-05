@@ -1,28 +1,10 @@
 // CS3500 Project - Tokenizer
 // Conor Patrick Mc Donald, Daniels Leonards Bindemans, Jack Meade
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include "token.c"
+#include "token.h"
+#include "filedata.h"
 
-#define BFSIZE 101                                                  // Memory allocation for full buffer size
 #define BTSIZE 10                                                   // Memory allocation for single operand/operator size
-
-// Defines Filedata struct
-// Used to forward formatted string and number of tokens needed
-typedef struct __filedata {
-    int num_of_tokens;                                              // Used to calculate how much memory needed
-    char *pstring;                                                  // Formatted string
-} filedata;
-
-//
-filedata *create_filedata() {
-    filedata *fd = (filedata *)malloc(sizeof(filedata));
-    fd->num_of_tokens = 0;                                          // Initialise at 0
-    fd->pstring = malloc(BFSIZE);                                   // File will be formatted in this buffer
-    return fd;
-}
 
 // Formats file for conversion to tokens
 filedata *parse_file(char *filename) {
@@ -92,16 +74,6 @@ token *convert_2_tokens(char *filename) {
     tokens[++tp] = *cur_token;
 
     return tokens;
-}
-
-// Prints array of tokens
-void print_token_array(token *tokens) {
-    int tp = -1;
-
-    // Print tokens until reached end token with value of NULL
-    while (tokens[++tp].value) {
-        print_token(&tokens[tp]);
-    }
 }
 
 // int main(int argc, char**argv) {
