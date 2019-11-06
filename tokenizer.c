@@ -1,15 +1,17 @@
 // CS3500 Project - Tokenizer
 // Conor Patrick Mc Donald, Daniels Leonards Bindemans, Jack Meade
 
-#include "token.h"
-#include "filedata.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-#define BTSIZE 10                                                   // Memory allocation for single operand/operator size
+#define BFSIZE 101                                                  // Memory allocation for full buffer size
 
-// Formats file for conversion to tokens
-filedata *parse_file(char *filename) {
-    filedata *fd = create_filedata();
+// Formats file
+char *read_file(char *filename, char *component) {
     FILE *fp = fopen(filename, "r");
+    char *buffer = malloc(sizeof(char) * BFSIZE);
     char c;
     int bp = -1;                                                    // Pointer to current position on buffer
 
@@ -21,63 +23,43 @@ filedata *parse_file(char *filename) {
             case ' ':
                 break;
             default:
-                fd->pstring[++bp] = c;
-
-                // If operator, we need at least 2 more tokens
-                if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^') {
-                    fd->num_of_tokens += 2;
-                }
+                buffer[++bp] = c;
         }
     }
-    fd->num_of_tokens += 2;                                         // Used for last num & to indicate end of array
-    return fd;
+    return buffer;
+}
+
+void write_file(char *output) {
+    FILE *fp = fopen("tokens.txt", "w");
+    fprintf(fp, "%s", output);
 }
 
 // Converts file to an array of tokens
-token *convert_2_tokens(char *filename) {
-    filedata *fd = parse_file(filename);
+void convert_2_tokens(char *filename) {
+    char *buffer = read_file(filename, "tokenizer");
+    char *output = malloc(sizeof(char) * BFSIZE);
 
-    char *buffer = malloc(BTSIZE);                                  // Buffer for current token
     int bp = -1;                                                    // Pointer to current position on buffer
-    int pp = -1;                                                    // Pointer to current position on formatted string
-    int isfloat = 0;                                                // Keeps track if buffer contains int or float
-    token *cur_token;
-    token *tokens = malloc(fd->num_of_tokens * sizeof(token));      // Array will need num of tokens * size of a token
-    int tp = -1;                                                    // Pointer to current position on array of tokens
+    int op = -1;                                                    // Pointer to current position on output
+    int new_num = 1;
 
-    while (fd->pstring[++pp] != '\0') {                             // While haven't reached end of string
-        if (isdigit(fd->pstring[pp]) || fd->pstring[pp] == '.') {   // - If char is a digit or decimal point
-            buffer[++bp] = fd->pstring[pp];                         // Put char into next position in buffer
-
-            if (fd->pstring[pp] == '.') { isfloat = 1; }            // If char is a decimal point, buffer contains float
-
-        } else {                                                    // - Else we have an operator
-            if (isfloat)    { cur_token = create_token('f', buffer); }
-            else            { cur_token = create_token('i', buffer); }
-            tokens[++tp] = *cur_token;                              // Put token into next position in array
-
-            // Value of token needs to be string, so this 'converts' single char to string
-            char *op_val = malloc(1);
-            op_val[0] = fd->pstring[pp];
-
-            cur_token = create_token('o', op_val);
-            tokens[++tp] = *cur_token;
-
-            // Reset buffer and its related variables
-            bp = -1; isfloat = 0;
-            memset(buffer, 0, strlen(buffer));
+    while (buffer[++bp] != '\0') {
+        if (isdigit(buffer[bp]) || buffer[bp] == '.') {
+            if (new_num) { new_num = 0; output[++op] = 'n'; output[++op] = ','; }
+            output[++op] = buffer[bp];
+        } else {
+            output[++op] = '\n';
+            new_num = 1;
+            output[++op] = 'o';
+            output[++op] = ',';
+            output[++op] = buffer[bp];
+            output[++op] = '\n';
         }
     }
-    // Need to convert final number as operators are used as breakpoints, and there are no operators at end of string
-    if (isfloat)    { cur_token = create_token('f', buffer); }
-    else            { cur_token = create_token('i', buffer); }
-    tokens[++tp] = *cur_token;
-
-    return tokens;
+    write_file(output);
 }
 
-// int main(int argc, char**argv) {
-//     token *tokens = convert_2_tokens("input.txt");
-//     print_token_array(tokens);
-//     return 0;
-// }
+int main(int argc, char**argv) {
+    convert_2_tokens("input.txt");
+    return 0;
+}
