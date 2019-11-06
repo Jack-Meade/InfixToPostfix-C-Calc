@@ -25,6 +25,7 @@ char *read_file(FILE *fp) {
                 buffer[++bp] = c;
         }
     }
+    fclose(fp);
     return buffer;
 }
 
@@ -32,6 +33,7 @@ char *read_file(FILE *fp) {
 void write_file(char *filename, char *output) {
     FILE *fp = fopen(filename, "w");                                // Open/create file with write operations
     fprintf(fp, "%s", output);                                      // Print formatted string to file
+    fclose(fp);
 }
 
 // Converts file to an array of tokens
