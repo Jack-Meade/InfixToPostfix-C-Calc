@@ -9,12 +9,12 @@ char *parse_file(FILE*fp){
     char *parsed;                   //Hold parsed characters
     char *chars;                    //Input buffer Holds characters for getline()
     size_t len = 0;                 //Holds the size of the input buffer,
-    char *str  = malloc(400);       //Buffer with size of the file.
+    char *str  = malloc(sizeof(char) * 400); //Buffer with limited to 400 char.
     while (getline(&chars, &len, fp) != EOF){
         char *s = strsep(&chars, ",");
         if (strcmp(s, "O") == 0){
             s = strsep(&chars, ",");
-            if (strcmp(s, "^\n") == 0)       {parsed = "EXP\n";}
+            if      (strcmp(s, "^\n") == 0)  {parsed = "EXP\n";}
             else if (strcmp(s, "*\n") == 0)  {parsed = "MUL\n";}
             else if (strcmp(s, "/\n") == 0)  {parsed = "DIV\n";}
             else if (strcmp(s, "+\n") == 0)  {parsed = "ADD\n";}
@@ -32,7 +32,6 @@ char *parse_file(FILE*fp){
     return str;
 }
 int write_file(FILE*fp, char *c){
-
     fprintf(fp, "%s", c);
     return 0;
 }
@@ -49,9 +48,8 @@ int main(int argc, char**argv) {
         fprintf(stderr, "File %s does not exist.\n", argv[1]);
         return 1;
     }
+    //End of error detection
     char *str = parse_file(fp);
-    printf("%s", str);
-
     FILE *output = fopen("out.txt", "w");
     write_file(output, str);
     return 0;
