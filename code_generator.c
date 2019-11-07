@@ -12,7 +12,7 @@ char *parse_file(FILE*fp){
     char *str  = malloc(sizeof(char) * 400); //Buffer with limited to 400 char.
     while (getline(&chars, &len, fp) != EOF){
         char *s = strsep(&chars, ",");
-        if (strcmp(s, "O") == 0){
+        if (strcmp(s, "o") == 0){
             s = strsep(&chars, ",");
             if      (strcmp(s, "^\n") == 0)  {parsed = "EXP\n";}
             else if (strcmp(s, "*\n") == 0)  {parsed = "MUL\n";}
@@ -38,19 +38,15 @@ int write_file(FILE*fp, char *c){
 
 int main(int argc, char**argv) {
     //Error detection
-    if (argc < 2){
-        fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
-        return 1;
-    }
     FILE *fp = NULL;
-    fp = fopen(argv[1],"r");
+    fp = fopen("i2p.txt","r");
     if (fp == NULL){
-        fprintf(stderr, "File %s does not exist.\n", argv[1]);
+        fprintf(stderr, "File %s does not exist.\n");
         return 1;
     }
     //End of error detection
     char *str = parse_file(fp);
-    FILE *output = fopen("out.txt", "w");
+    FILE *output = fopen("code.txt", "w");
     write_file(output, str);
     return 0;
 }
