@@ -10,7 +10,14 @@
 #define OUTPUT_FILE "tokens.txt"
 #define INPUT_FILE "input.txt"
 
-// Formats file
+// Prints formatted output to file
+void write_file(char *output) {
+    FILE *fp = NULL;
+    if (fp = fopen(OUTPUT_FILE, "w"))   { fprintf(fp, "%s", output); fclose(fp); }
+    else                             { fprintf(stderr, "Error: Could not create tokens.txt\n"); exit(4); }
+}
+
+// Reads in file & formats
 char *parse_file(FILE *fp) {
     char *output = (char *)malloc(sizeof(char) * BFSIZE);           // Output used in I2P
     char c;
@@ -27,13 +34,22 @@ char *parse_file(FILE *fp) {
             case '\n':
             case ' ':
                 break;
+            case '(':
+            case ')':
+                if (!new_num) { output[++op] = '\n'; }                  // Mark end of token by starting newline
+                new_num      = 1;                                       // Next digit/decimal point will be a new num
+                output[++op] = 'o';                                     // Place operator on buffer, with type and value
+                output[++op] = ',';
+                output[++op] = c;
+                output[++op] = '\n';
+                lastCharNotNum = 1;
+                if (c == ')') { lastCharNotNum = 0; }
+                break;
             case '+':
             case '-':
             case '*':
             case '/':
             case '^':
-            case '(':  //TODO: Fix parentheses
-            case ')':
                 if (lastCharNotNum) {
                     if (num_is_neg || c != '-') {
                         fclose(fp);
@@ -41,9 +57,7 @@ char *parse_file(FILE *fp) {
                         exit(2);
                     } else {
                         num_is_neg = 1;
-                        break;
                     }
-
                 } else {
                     if (!new_num) { output[++op] = '\n'; }                  // Mark end of token by starting newline
                     new_num      = 1;                                       // Next digit/decimal point will be a new num
@@ -53,9 +67,9 @@ char *parse_file(FILE *fp) {
                     output[++op] = '\n';
                     lastCharNotNum = 1;
                     num_is_neg = 0;
-                    break;
-                }
 
+                }
+                break;
             default:
                 if (new_num) {                                          //  If first char in new num
                     new_num      = 0;                                   //   Set it so next char won't be set as a new num
@@ -63,7 +77,7 @@ char *parse_file(FILE *fp) {
                     output[++op] = ',';
                     if (num_is_neg) {
                         output[++op] = '-';
-                    }                                 //   Seperate type from value
+                    }
                 }
                 output[++op] = c;
                 lastCharNotNum = 0;
@@ -79,24 +93,16 @@ char *parse_file(FILE *fp) {
     return output;
 }
 
-// Prints output to file
-void write_file(char *filename, char *output) {
-    FILE *fp = NULL;                                                // Open/create file with write operations
-    if (fp = fopen(filename, "w"))   { fprintf(fp, "%s", output); fclose(fp); }
-    else                             { fprintf(stderr, "Error: Could not create tokens.txt\n"); exit(4); }
-
-}
-
 // Converts file to an array of tokens
 void convert_file_to_tokens(FILE *fp) {
-    char *output = parse_file(fp);                                  // Read in formatted buffer
-    write_file(OUTPUT_FILE, output);                                // Write out to tokens.txt
+    char *output = parse_file(fp);                                  // Read in file & format
+    write_file(output);                                // Write out to tokens.txt
 }
 
 int main(int argc, char**argv) {
     FILE *fp = NULL;
     if (fp = fopen(INPUT_FILE, "r")) { convert_file_to_tokens(fp); }
-    else                              { fprintf(stderr, "Error: input.txt doesn't exist in this directory\n"); return 1; }
+    else                             { fprintf(stderr, "Error: input.txt doesn't exist\n"); return 1; }
 
     return 0;
 }
