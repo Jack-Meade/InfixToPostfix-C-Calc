@@ -11,11 +11,14 @@
 #define INPUT_FILE "input.txt"
 
 // Formats file
-char *read_file(FILE *fp) {
-    char *buffer = (char *)malloc(sizeof(char) * BFSIZE);
+char *parse_file(FILE *fp) {
+    char *output = (char *)malloc(sizeof(char) * BFSIZE);           // Output used in I2P
     char c;
     int bp = -1;                                                    // Pointer to current position on buffer
-    int lastCharNotNum = 0;
+    int op = -1;                                                    // Pointer to current position on output
+    int new_num = 1;                                                // Indicates if new num while processing buffer
+    int lastCharNotNum = 1;
+    int num_is_neg = 0;
 
     // If next char isn't EOF,
     //  decide if it should go on buffer or not
@@ -29,18 +32,42 @@ char *read_file(FILE *fp) {
             case '*':
             case '/':
             case '^':
-            case '.':
+            case '(':  //TODO: Fix parentheses
+            case ')':
                 if (lastCharNotNum) {
-                    fclose(fp);
-                    fprintf(stderr, "Error: Invalid infix expression\n");
-                    exit(2);
+                    if (num_is_neg || c != '-') {
+                        fclose(fp);
+                        fprintf(stderr, "Error: Invalid infix expression\n");
+                        exit(2);
+                    } else {
+                        num_is_neg = 1;
+                        break;
+                    }
+
+                } else {
+                    if (!new_num) { output[++op] = '\n'; }                  // Mark end of token by starting newline
+                    new_num      = 1;                                       // Next digit/decimal point will be a new num
+                    output[++op] = 'o';                                     // Place operator on buffer, with type and value
+                    output[++op] = ',';
+                    output[++op] = c;
+                    output[++op] = '\n';
+                    lastCharNotNum = 1;
+                    num_is_neg = 0;
+                    break;
                 }
-                buffer[++bp] = c;
-                lastCharNotNum = 1;
-                break;
+
             default:
-                buffer[++bp] = c;
+                if (new_num) {                                          //  If first char in new num
+                    new_num      = 0;                                   //   Set it so next char won't be set as a new num
+                    output[++op] = 'n';                                 //   Set it's type
+                    output[++op] = ',';
+                    if (num_is_neg) {
+                        output[++op] = '-';
+                    }                                 //   Seperate type from value
+                }
+                output[++op] = c;
                 lastCharNotNum = 0;
+                num_is_neg = 0;
         }
     }
     if (lastCharNotNum) {
@@ -49,7 +76,7 @@ char *read_file(FILE *fp) {
         exit(3);
     }
     fclose(fp);
-    return buffer;
+    return output;
 }
 
 // Prints output to file
@@ -62,34 +89,8 @@ void write_file(char *filename, char *output) {
 
 // Converts file to an array of tokens
 void convert_file_to_tokens(FILE *fp) {
-    char *buffer = read_file(fp);                                   // Read in formatted buffer
-    char *output = (char *)malloc(sizeof(char) * BFSIZE);           // Output used in I2P
-
-    int bp = -1;                                                    // Pointer to current position on buffer
-    int op = -1;                                                    // Pointer to current position on output
-    int new_num = 1;                                                // Indicates if new num while processing buffer
-
-    while (buffer[++bp] != '\0') {                                  // While still have chars in buffer
-        if (isdigit(buffer[bp]) || buffer[bp] == '.') {             // If char is a digit or decimal point
-            if (new_num) {                                          //  If first char in new num
-                new_num      = 0;                                   //   Set it so next char won't be set as a new num
-                output[++op] = 'n';                                 //   Set it's type
-                output[++op] = ',';                                 //   Seperate type from value
-            }
-            output[++op] = buffer[bp];                              //  Else, place char on buffer
-
-        } else {                                                    // Else, we have an operator
-            output[++op] = '\n';                                    // Mark end of token by starting newline
-            new_num      = 1;                                       // Next digit/decimal point will be a new num
-            output[++op] = 'o';                                     // Place operator on buffer, with type and value
-            output[++op] = ',';
-            output[++op] = buffer[bp];
-            output[++op] = '\n';
-        }
-    }
-    write_file(OUTPUT_FILE, output);                               // Write out to tokens.txt
-    free(buffer);
-    free(output);
+    char *output = parse_file(fp);                                  // Read in formatted buffer
+    write_file(OUTPUT_FILE, output);                                // Write out to tokens.txt
 }
 
 int main(int argc, char**argv) {
