@@ -6,6 +6,8 @@
 #include <string.h>
 #include <math.h>
 
+#define INPUT_FILE "code.txt"
+
 // Executes VM using code generated
 float execute(char *filename) {
     FILE *fp;
@@ -24,6 +26,7 @@ float execute(char *filename) {
         else if (strcmp(instruction, "SUB\n") == 0) { operands[op-1] =     operands[op-1] - operands[op]; op--; }
         else if (strcmp(instruction, "MUL\n") == 0) { operands[op-1] =     operands[op-1] * operands[op]; op--; }
         else if (strcmp(instruction, "DIV\n") == 0) { operands[op-1] =     operands[op-1] / operands[op]; op--; }
+        else if (strcmp(instruction, "MOD\n") == 0) { operands[op-1] =     operands[op-1] % operands[op]; op--; }
         else {
             // Else we have a number and need to put into stack
             instruction[strcspn(instruction, "\n")] = 0;
@@ -36,7 +39,7 @@ float execute(char *filename) {
 }
 
 int main(int argc, char**argv) {
-    float result = execute("code.txt");
-    printf("%4.2f\n", result);
+    float result = execute(INPUT_FILE);
+    printf("%4.4f\n", result);
     return 0;
 }

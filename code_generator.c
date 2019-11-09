@@ -15,6 +15,7 @@ char *parse_file(FILE*fp){
         if (strcmp(s, "o") == 0){
             s = strsep(&chars, ",");
             if      (strcmp(s, "^\n") == 0)  {parsed = "EXP\n";}
+            else if (strcmp(s, "%\n") == 0)  {parsed = "MOD\n";}
             else if (strcmp(s, "*\n") == 0)  {parsed = "MUL\n";}
             else if (strcmp(s, "/\n") == 0)  {parsed = "DIV\n";}
             else if (strcmp(s, "+\n") == 0)  {parsed = "ADD\n";}
