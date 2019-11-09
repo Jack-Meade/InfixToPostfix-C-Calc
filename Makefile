@@ -1,5 +1,4 @@
-#all: tokens.txt code.txt i2pcalc
-target: i2pcalc
+all: tokens.txt code.txt i2pcalc
 
 tokens.txt: tokenizer.c input.txt
 	@gcc -o tokenizer.o tokenizer.c
