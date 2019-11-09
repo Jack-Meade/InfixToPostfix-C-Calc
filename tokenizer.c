@@ -3,8 +3,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
 
 #define BFSIZE 100                                                      // Memory allocation for full buffer size
 #define OUTPUT_FILE "tokens.txt"
@@ -56,12 +54,13 @@ char *parse_file(FILE *fp) {
             case '/':
             case '^':
             case '%':
-                if (illegal_operator) {
+                if (illegal_operator) {                                 // If operator shouldn't be current char
+                    //  If the number is already defined as negative or the operator isn't a minus
                     if (num_is_neg || c != '-') {
                         fclose(fp);
                         fprintf(stderr, "Error: Invalid infix expression\n");
                         exit(2);
-                    } else {
+                    } else {                                            // Else expression indicates number is negative
                         num_is_neg = 1;
                     }
                 } else {
@@ -76,15 +75,15 @@ char *parse_file(FILE *fp) {
                     output[++op] = 'n';                                 //   Set it's type
                     output[++op] = ',';
                     if (num_is_neg) {                                   //  If number is negative
-                        output[++op] = '-';                             //   Mark is as such
+                        output[++op] = '-';                             //   Mark it as such
+                        num_is_neg = 0;                                 //   Reset indicater
                     }
                 }
                 output[++op] = c;                                       // Place char in output
                 illegal_operator = 0;                                   // An operator is legal after a num
-                num_is_neg = 0;                                         // Number
         }
     }
-    if (illegal_operator) {
+    if (illegal_operator || output[op] == '.' ) {                       // If last char was an operator or period
         fclose(fp);
         fprintf(stderr, "Error: Trailing operator/period in expression\n");
         exit(3);
@@ -95,8 +94,8 @@ char *parse_file(FILE *fp) {
 
 // Converts file to an array of tokens
 void convert_file_to_tokens(FILE *fp) {
-    char *output = parse_file(fp);                                  // Read in file & format
-    write_file(output);                                             // Write out to tokens.txt
+    char *output = parse_file(fp);                                      // Read in file & format
+    write_file(output);                                                 // Write out to tokens.txt
 }
 
 int main(int argc, char**argv) {
