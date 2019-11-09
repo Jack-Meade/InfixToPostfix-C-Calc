@@ -22,11 +22,11 @@ float execute(char *filename) {
     while ((getline(&instruction, &len, fp)) != EOF) {      // While not at end of code generated
         // Determine next instruction
         if      (strcmp(instruction, "EXP\n") == 0) { operands[op-1] = pow(operands[op-1], operands[op]); op--; }
+        else if (strcmp(instruction, "MOD\n") == 0) { operands[op-1] =     operands[op-1] % operands[op]; op--; }
         else if (strcmp(instruction, "ADD\n") == 0) { operands[op-1] =     operands[op-1] + operands[op]; op--; }
         else if (strcmp(instruction, "SUB\n") == 0) { operands[op-1] =     operands[op-1] - operands[op]; op--; }
         else if (strcmp(instruction, "MUL\n") == 0) { operands[op-1] =     operands[op-1] * operands[op]; op--; }
         else if (strcmp(instruction, "DIV\n") == 0) { operands[op-1] =     operands[op-1] / operands[op]; op--; }
-        else if (strcmp(instruction, "MOD\n") == 0) { operands[op-1] =     operands[op-1] % operands[op]; op--; }
         else {
             // Else we have a number and need to put into stack
             instruction[strcspn(instruction, "\n")] = 0;
