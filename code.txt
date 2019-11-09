@@ -1,9 +1,15 @@
-25
+-25
 7.25
 3
+MUL
 2
 EXP
-MUL
 SUB
 320
 SUB
+-40
+3
+MUL
+2
+DIV
+ADD
