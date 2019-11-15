@@ -9,7 +9,7 @@ char pop(char *stack, int *top){
   if(*top == -1)  // Stack is empty so return -1
       return '?';
   else
-    printf("%c\n", stack[*top-1]);
+    //printf("%c\n", stack[*top-1]);
       return stack[*top--];  // Return what what the top of stack and decrement stack cursor by 1
 }
 
@@ -54,21 +54,29 @@ char *parse_file(FILE*fp){
           while (chars[++lp] != '\0') {
             output[++i] = chars[lp];
           }
-          printf("%s\n", output);
+          //printf("%s\n", output);
         }
         else if (strcmp(s, "o") == 0){
 
-            // printf("%s\n", s);
             s = strsep(&chars, ",");  //operands go straight to the stack
             s[strcspn(s, "\n")] = 0;
+            printf("%s Pushed to Stack\n",s);
             op = s[0];
-            if (op == ')')    {
-                while(val = pop(stack, &top) != '('){
+            if (op == ')') {
+                printf("%c Start While loop\n",op );
+                while((val = pop(stack, &top)) != '('){ //Pop from stack til opening bracket found
+                  //printf("%c\n",val);
+                  //push(stack, &top,'(');
+                  if((char)val == '('){
+                    printf("True\n");
+                  }
+
+                  //printf("%d\n", val);
                   output[++i] = 'o';
                   output[++i] = ',';
                   output[++i] = val;
                   output[++i] = '\n';
-                  //printf("%c\n", val);
+
                 }
             }
             else if (op == '(') {push(stack, &top, op);}
@@ -80,7 +88,7 @@ char *parse_file(FILE*fp){
                 output[++i] = '\n';
               }
               push(stack, &top, op);
-              printf("%s\n", "poppop");
+              //printf("%s\n", "poppop");
             }
         }
         else {
@@ -89,7 +97,8 @@ char *parse_file(FILE*fp){
 
 
     }
-    printf("%s\n",output );
+    //printf("%s\n",output );
+    return 0;
   }
 
     int main(int argc, char const *argv[]) {
@@ -97,7 +106,7 @@ char *parse_file(FILE*fp){
       FILE *fp = NULL;
       fp = fopen("tokens.txt","r");
       if (fp == NULL){
-          fprintf(stderr, "File %s does not exist.\n");
+          fprintf(stderr, "File does not exist.\n");
           return 1;
       }
       // Generate postfix from file
