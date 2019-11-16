@@ -89,6 +89,7 @@ char *parse_file(FILE *fp) {
         exit(3);
     }
     fclose(fp);
+    output[++op] = '\n';
     return output;
 }
 
