@@ -25,6 +25,7 @@ void push(char *stack, int *top, char x){ // Add next char to top of stack
 }
 
 int precedence(char x){
+  /*Exponent has highest precedence, Non operators(Numbers, brackets) have 0 precedence*/
     switch(x) {
         case '^':
             return 3; break;
@@ -40,7 +41,7 @@ int precedence(char x){
     }
 }
 
-// Writes operator onto output
+// Writes operator onto output, in a CSV format
 void push_operator(char *output, int *op, char *stack, int *top) {
     output[++*op] = 'o';
     output[++*op] = ',';
@@ -51,11 +52,11 @@ void push_operator(char *output, int *op, char *stack, int *top) {
 char *parse_file(FILE*fp){
     char *stack = (char *)malloc(100);  // The stack
     int top = -1; // initalise the top of stack
-    char *chars;                    //Input buffer Holds characters for getline()
-    size_t len = 0;                 //Holds the size of the input buffer,
+    char *chars;  //Input buffer Holds characters for getline()
+    size_t len = 0; //Holds the size of the input buffer,
     char *output = (char *)malloc(400);
     int op = -1;
-    int lp = -1;
+    int lp = -1;  // Line pointer for lines read in from file
     char operator;
 
     while (getline(&chars, &len, fp) != EOF){
@@ -65,7 +66,7 @@ char *parse_file(FILE*fp){
             output[++op] = 'n';
             output[++op] = ',';
 
-            while (chars[++lp] != '\0') {
+            while (chars[++lp] != '\0') { // Read to end of the line(value) e.g. 7.25\\0
                 output[++op] = chars[lp];
             }
 
@@ -73,7 +74,7 @@ char *parse_file(FILE*fp){
             s = strsep(&chars, ",");
             operator = s[0];
 
-            if (operator == ')') {
+            if (operator == ')') {  // Must process what was between opening and closing brackets to keep correct precedence
                 while(stack[top] != '(') { // Pop from stack til opening bracket found
                     push_operator(output, &op, stack, &top);
                 }
@@ -82,11 +83,11 @@ char *parse_file(FILE*fp){
             } else if (operator == '(') {
                 push(stack, &top, operator);
 
-            } else {
+            } else { /*pop off all the operators that have a higher precedence than cur operator to output*/
                 while(precedence(stack[top]) >= precedence(operator)){
                     push_operator(output, &op, stack, &top);
                 }
-                push(stack, &top, operator);
+                push(stack, &top, operator);  // Place current operator on the stack
             }
 
         } else { // Otherwise it is a number
