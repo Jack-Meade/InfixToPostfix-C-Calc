@@ -1,5 +1,5 @@
 # cs3500project
-Implementation of calculator for CS3500 C project
+Implementation of Infix to Postfix calculator for CS3500 C project
 
 by Conor Patrick Mc Donald, Daniels Leonards Bindemans, and Jack Meade
 
@@ -7,31 +7,44 @@ by Conor Patrick Mc Donald, Daniels Leonards Bindemans, and Jack Meade
 
 ## Tokenizer
 The Tokenizer will read in the input file and parse the characters into tokens.
-It will go through each character and hold the them in a buffer until an operator is reached.
-It will then decide if the number inside the buffer is an integer or float by checking if there was a decimal point.
-It will then make a token struct out of this with a type and value attributes.
-These will be added to an array until the end of a file is reached. Operators will be added as tokens in the same way
-and put straight into the array as they are single characters.
-Output will be the array of tokens.
+
+It will go through each character and hold the them in a buffer until an operator is reached. Then it will format
+the buffer and place this on an output string.
+
+When an operator is reached, it will format this and place it onto the output string, unless the operator marks a
+negative number, in which case it is formatted to be part of the number.
+
+Output will be a file containing the formatted output.
 
 ## I2P
-I2P will read in the array from the Tokenizer and use Shunting-yard algorithm to convert Infix to Postfix.
+I2P will read in the file from the Tokenizer and use Shunting-yard algorithm to convert Infix to Postfix.
+
 It will use two stacks: an output stack and an operator stack.
-Output will be the tokens in Postfix order in an array.
+
+It'll go through each line and place numbers on the output stack. When an operator is reached, it'll use Shunting-yard
+to determine how it should pop/push from the operator stack.
+
+Output will be a file containing the formatted output in Postfix order.
 
 ## Code Generator
-The Code Generator will read in the array from I2P and start generating instructions for the VM to follow.
-It will place these instructions onto an array.
+The Code Generator will read in the file from I2P and start generating instructions for the VM to follow.
+
+It will place these instructions onto a formatted output string.
+
 It will look at the token type and value to determine what the instructions should be,
-e.g. a number if type is integer/float or MUL if type is operator and value is “\*”.
-Output will be the array where each item is places on a newline in a file.
+e.g. a number if the line begins with "n" or MUL if the line begins with "o" and value is “\*”.
+
+Output will be a file where each instruction is on a newline
 
 ## VM
 The VM will start reading instructions from the start of the file passed in by the Code Generator.
-It will load numbers into memory (keeping track with a pointer to act as a stack)
+
+It will load numbers into memory (stack, and able to keep track with a pointer to act as a stack pointer)
 and will start to perform arithmetic on them when an operator is reached.
-It will use the pointer to pop numbers from memory.
-The last value in memory will be the result, which’ll be outputted to the user.
+
+It will have rules associated with each operator, and pop from the stack to perform arithmetic on the operands accordingly.
+
+The last value in memory will be the result, which will be outputted to the user.
 
 # Functional Requirements
 1. Calculator should accept valid user input e.g. any real number +-/* any real number
@@ -56,19 +69,19 @@ The last value in memory will be the result, which’ll be outputted to the user
 
 # Interfaces Between The System Components
 ## Tokenizer -> I2P
-Tokenizer will output an array of tokens indicating what it is by a type and what is the value of
-the token, e.g. 12 → {type=”d”, value=”12”}.
+Tokenizer will output a file, each line is a token consisting of its type ("n" or "o") and the type's value separated
+by a comma.
 
-I2P will read this array, go through each item and process each token according to rules
+I2P will read this file, go through each line and process each token according to rules
 associated with its type in accordance to Shunting-yard algorithm.
 
 ## I2P -> Code Generator
-I2P will use Shunting-yard algorithm to structure the conversion.
-This outputs an array of tokens.
+I2P will use Shunting-yard algorithm to structure the conversion from Infix to Postfix. This outputs a file,
+each line is a token consisting of its type ("n" or "o") and the type's value separated by a comma.
 
-The Code Generator will expect this array and can read each item in it to generate code. It
-will know to load integers/floats by reading the token’s type attribute. It can read operators by
-the token type/value and generate their appropriate arithmetic instruction.
+The Code Generator will go through the file and can read each line in it to generate code. It
+will know to load numbers by reading the token’s type, and place the number on a newline in it's output file. 
+It can read operators by the token type/value and generate their appropriate arithmetic instruction.
 
 ## Code Generator -> VM
 The Code Generator will output a file containing instructions on each line. Each line will either be
