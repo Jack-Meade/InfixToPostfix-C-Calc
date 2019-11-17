@@ -36,13 +36,13 @@ char *parse_file(FILE*fp){
 int main(int argc, char**argv) {
     //Error detection
     FILE *fp = NULL;
-    fp = fopen("i2p.txt","r");                          //Try to open file
+    fp = fopen("output/i2p.txt","r");                          //Try to open file
     if (fp == NULL){                                    //If the file pointer is null
         fprintf(stderr, "File %s does not exist.\n");   //Then the file doesn't exist
         return 1;
     }
     //End of error detection
     char *str = parse_file(fp);                     //parse the file
-    write_file("code.txt", str);                    //write to new file the parsed data
+    write_file("output/code.txt", str);             //write to new file the parsed data
     return 0;
 }

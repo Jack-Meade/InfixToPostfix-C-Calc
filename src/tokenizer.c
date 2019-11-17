@@ -8,7 +8,7 @@
 
 #define BUFFER_SIZE 400                                                 // Memory allocation for full buffer size
 #define INPUT_FILE  "input.txt"
-#define OUTPUT_FILE "tokens.txt"
+#define OUTPUT_FILE "output/tokens.txt"
 
 /* end_of_token()
 ---DESCRIPTION---

@@ -100,11 +100,11 @@ char *parse_file(FILE*fp){
 int main(int argc, char const *argv[]) {
     //opening the file
     FILE *fp = NULL;
-    fp = fopen("tokens.txt","r");
+    fp = fopen("output/tokens.txt","r");
     if (fp == NULL){
         fprintf(stderr, "File does not exist.\n");
         return 1;
     }
     // Generate postfix from file
-    write_file("i2p.txt", parse_file(fp));
+    write_file("output/i2p.txt", parse_file(fp));
 }

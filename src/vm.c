@@ -7,7 +7,7 @@
 #include <math.h>
 
 #define BUFFER_SIZE 400
-#define INPUT_FILE "code.txt"
+#define INPUT_FILE "output/code.txt"
 
 // Executes VM using code generated
 float execute(char *filename) {
