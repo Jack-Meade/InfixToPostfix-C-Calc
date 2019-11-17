@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BFSIZE 100                                                      // Memory allocation for full buffer size
+#define BUFFER_SIZE 400                                                 // Memory allocation for full buffer size
 #define OUTPUT_FILE "tokens.txt"
 #define INPUT_FILE "input.txt"
 
@@ -28,25 +28,24 @@ void end_of_token(int *new_num, char *output, int *op, char c, int* illegal_oper
 
 // Reads in file & formats
 char *parse_file(FILE *fp) {
-    char *output = (char *)malloc(sizeof(char) * BFSIZE);               // Output used in I2P
-    char c;                                                             // Current char in buffer
-    int bp = -1;                                                        // Pointer to current position in buffer
+    char *output = (char *)malloc(sizeof(char) * BUFFER_SIZE);          // Output used in I2P
+    char c;                                                             // Current character
     int op = -1;                                                        // Pointer to current position in output
     int new_num = 1;                                                    // Indicates if new num while processing buffer
     int illegal_operator = 1;                                           // Indicates if operator is valid as current char
     int num_is_neg = 0;                                                 // eg. 25 + -40 is a valid infix expression
 
     // If next char isn't EOF,
-    //  decide if it should go on buffer or not
+    //  decide if it should go in output or not
     while ((c = getc(fp)) != EOF) {
         switch (c) {
             case '\n':
             case ' ':
                 break;
             case '(':
-            case ')':
+            case ')':                                                   // Parentheses go straight to output
                 end_of_token(&new_num, output, &op, c, &illegal_operator);
-                if (c == ')') { illegal_operator = 0; }
+                if (c == ')') { illegal_operator = 0; }                 // eg. (2+3)^3 is a valid infix expression
                 break;
             case '+':
             case '-':
@@ -63,7 +62,7 @@ char *parse_file(FILE *fp) {
                     } else {                                            // Else expression indicates number is negative
                         num_is_neg = 1;
                     }
-                } else {
+                } else {                                                // Else put operator in output
                     end_of_token(&new_num, output, &op, c, &illegal_operator);
                     num_is_neg = 0;
 
@@ -89,6 +88,7 @@ char *parse_file(FILE *fp) {
         exit(3);
     }
     fclose(fp);
+    output[++op] = '\n';
     return output;
 }
 

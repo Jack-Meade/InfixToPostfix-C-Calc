@@ -6,13 +6,14 @@
 #include <string.h>
 #include <math.h>
 
+#define BUFFER_SIZE 400
 #define INPUT_FILE "code.txt"
 
 // Executes VM using code generated
 float execute(char *filename) {
     FILE *fp;
     char *instruction;                                      // Buffer which holds current instruction
-    float operands[100];                                    // Operand stack
+    float operands[BUFFER_SIZE];                            // Operand stack
     int op = -1;                                            // Pointer to current operand in stack
     size_t len = 0;                                         // Pointer to size of buffer (needed for getline())
     fp = fopen(filename, "r");
@@ -29,7 +30,7 @@ float execute(char *filename) {
         else if (strcmp(instruction, "DIV\n") == 0) { operands[op-1] =       operands[op-1] / operands[op]; op--; }
         else {
             // Else we have a number and need to put into stack
-            instruction[strcspn(instruction, "\n")] = 0;
+            instruction[strcspn(instruction, "\n")] = 0;    // Removes newline character from instruction
             operands[++op] = strtof(instruction, NULL);
         }
     }
