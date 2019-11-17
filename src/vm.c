@@ -6,14 +6,23 @@
 #include <string.h>
 #include <math.h>
 
-#define BUFFER_SIZE 400
+#define STACK_SIZE 200
 #define INPUT_FILE "output/code.txt"
 
-// Executes VM using code generated
+/*
+---DESCRIPTION---
+Executes VM using code from Code Generator.
+
+---INPUT---
+*filename:      string of file were code is located
+
+---OUTPUT---
+Result of calculation from instructions
+*/
 float execute(char *filename) {
     FILE *fp;
     char *instruction;                                      // Buffer which holds current instruction
-    float operands[BUFFER_SIZE];                            // Operand stack
+    float operands[STACK_SIZE];                             // Operand stack
     int op = -1;                                            // Pointer to current operand in stack
     size_t len = 0;                                         // Pointer to size of buffer (needed for getline())
     fp = fopen(filename, "r");
