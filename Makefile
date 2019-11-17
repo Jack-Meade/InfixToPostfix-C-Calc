@@ -19,3 +19,6 @@ i2pcalc: vm.c code.txt
 	@gcc -o i2pcalc vm.c -lm
 	@./i2pcalc
 	@rm i2pcalc
+
+test:
+	@tests/tokenizer.t
