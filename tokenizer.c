@@ -3,17 +3,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "write.h"
 
 #define BUFFER_SIZE 400                                                 // Memory allocation for full buffer size
 #define OUTPUT_FILE "tokens.txt"
 #define INPUT_FILE "input.txt"
-
-// Prints formatted output to file
-void write_file(char *output) {
-    FILE *fp = NULL;
-    if (fp = fopen(OUTPUT_FILE, "w"))   { fprintf(fp, "%s", output); fclose(fp); }
-    else                                { fprintf(stderr, "Error: Could not create tokens.txt\n"); exit(4); }
-}
 
 // Marks end of operand and places operator in output
 void end_of_token(int *new_num, char *output, int *op, char c, int* illegal_operator) {
@@ -95,7 +89,7 @@ char *parse_file(FILE *fp) {
 // Converts file to an array of tokens
 void convert_file_to_tokens(FILE *fp) {
     char *output = parse_file(fp);                                      // Read in file & format
-    write_file(output);                                                 // Write out to tokens.txt
+    write_file(OUTPUT_FILE, output);                                    // Write out to tokens.txt
 }
 
 int main(int argc, char**argv) {

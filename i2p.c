@@ -4,13 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-// Prints formatted output to file
-void write_file(char *output) {
-    FILE *fp = NULL;
-    if (fp = fopen("i2p.txt", "w"))     { fprintf(fp, "%s", output); fclose(fp); }
-    else                                { fprintf(stderr, "Error: Could not create i2p.txt\n"); exit(1); }
-}
+#include "write.h"
 
 /*Pop the top object off the tack and return it*/
 char pop(char *stack, int *top) {
@@ -112,5 +106,5 @@ int main(int argc, char const *argv[]) {
         return 1;
     }
     // Generate postfix from file
-    write_file(parse_file(fp));
+    write_file("i2p.txt", parse_file(fp));
 }

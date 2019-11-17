@@ -2,8 +2,8 @@
 // Conor Patrick Mc Donald, Daniels Leonards Bindemans, Jack Meade
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <string.h>
+#include "write.h"
 
 char *parse_file(FILE*fp){
     char *parsed;                            //Hold parsed characters
@@ -32,10 +32,6 @@ char *parse_file(FILE*fp){
     fclose(fp);             //close the file
     return str;             //return the new string.
 }
-int write_file(FILE*fp, char *c){
-    fprintf(fp, "%s", c);       //Write the string to the new file
-    return 0;
-}
 
 int main(int argc, char**argv) {
     //Error detection
@@ -47,7 +43,6 @@ int main(int argc, char**argv) {
     }
     //End of error detection
     char *str = parse_file(fp);                     //parse the file
-    FILE *output = fopen("code.txt", "w");          //create new file
-    write_file(output, str);                        //write to new file the parsed data
-    return 0;           
+    write_file("code.txt", str);                    //write to new file the parsed data
+    return 0;
 }
