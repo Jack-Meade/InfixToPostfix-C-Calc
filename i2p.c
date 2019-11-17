@@ -55,13 +55,13 @@ char *parse_file(FILE*fp){
     char *chars;  //Input buffer Holds characters for getline()
     size_t len = 0; //Holds the size of the input buffer,
     char *output = (char *)malloc(400);
-    int op = -1;
-    int lp = -1;  // Line pointer for lines read in from file
+    int op = -1; // cursor to keep track of position in output array
+    int lp = -1;  // Line pointer for characters in a current line
     char operator;
 
     while (getline(&chars, &len, fp) != EOF){
         char *s = strsep(&chars, ",");
-        if (strcmp(s, "n") == 0) { // numbers are put directly into output queue
+        if (strcmp(s, "n") == 0) { // numbers are put directly into output queue in CSV format
             lp = -1;
             output[++op] = 'n';
             output[++op] = ',';
