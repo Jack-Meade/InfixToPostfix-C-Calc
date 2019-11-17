@@ -21,6 +21,4 @@ i2pcalc: src/vm.c output/code.txt
 	@rm i2pcalc
 
 test:
-	@gcc -o tests/tokenizer.t tests/tokenizer.c
-	@prove -v tests/tokenizer.t
-	@rm tests/tokenizer.t
+	@prove -v tests/*.t
