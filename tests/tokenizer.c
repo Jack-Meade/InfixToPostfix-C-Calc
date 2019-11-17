@@ -3,8 +3,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "write.h"
-// #include <ctap.h>
+#include "../src/write.h"
+#include <ctap.h>
 
 #define BUFFER_SIZE 400                                                 // Memory allocation for full buffer size
 #define INPUT_FILE  "input.txt"
@@ -121,10 +121,25 @@ void convert_file_to_tokens(FILE *fp) {
     write_file(OUTPUT_FILE, output);                                    // Write out to tokens.txt
 }
 
-int main(int argc, char**argv) {
-    FILE *fp = NULL;
-    if (fp = fopen(INPUT_FILE, "r")) { convert_file_to_tokens(fp); }
-    else                             { fprintf(stderr, "Error: input.txt doesn't exist\n"); return 1; }
+// Test suite
+TESTS {
+    #define TEST_INPUT_FILE         "tests/input.txt"
+    #define TEST_INPUT_EXPRESSION   "10 +5/ 10"
+    #define TEST_OUTPUT_EXPRESSION  "n,10\no,+\nn,5\no,/\nn,10\n"
 
-    return 0;
+    ok(BUFFER_SIZE == 400,                   "Buffer size set correct");
+    ok(INPUT_FILE  == "input.txt",           "Input file set correct");
+    ok(OUTPUT_FILE == "output/tokens.txt",   "Output file set correct");
+
+    char *line;
+    size_t len;
+    write_file(TEST_INPUT_FILE, TEST_INPUT_EXPRESSION);
+    FILE *fp1 = fopen(TEST_INPUT_FILE, "r");
+    isnt_null(fp1,                  "Able to read files");
+    getline(&line, &len, fp1);
+    is(line, TEST_INPUT_EXPRESSION, "Able to write files");
+
+    FILE *fp2 = fopen(TEST_INPUT_FILE, "r");
+    char *test_output = parse_file(fp2);
+    is(test_output, TEST_OUTPUT_EXPRESSION, "Able to tokenize input file");
 }
