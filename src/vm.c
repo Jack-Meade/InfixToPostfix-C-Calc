@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+// #include <ctap.h>
 
 #define STACK_SIZE 200
 #define INPUT_FILE "output/code.txt"
@@ -53,3 +54,20 @@ int main(int argc, char**argv) {
     printf("%4.4f\n", result);
     return 0;
 }
+
+// Test suite
+// TESTS {
+//     #include "write.h"
+//     #define TEST_INPUT_FILE "tests/input.txt"
+//     #define TEST_INPUT_CODE "-25\n7.25\n3\nMUL\nSUB\n"
+//
+//     ok(STACK_SIZE == 200,               "Buffer size set correct");
+//     ok(INPUT_FILE == "output/code.txt", "Input file set correct");
+//
+//     char *line;
+//     size_t len;
+//     write_file(TEST_INPUT_FILE, TEST_INPUT_CODE);
+//     FILE *fp1 = fopen(TEST_INPUT_FILE, "r");
+//     isnt_null(fp1,            "Able to read files");
+//     ok(-46.75 == execute(TEST_INPUT_FILE), "Able to execute instructions");
+// }
