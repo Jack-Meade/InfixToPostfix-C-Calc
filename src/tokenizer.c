@@ -135,9 +135,9 @@ int main(int argc, char**argv) {
 //     #define TEST_INPUT_EXPRESSION   "10 +5/ 10"
 //     #define TEST_OUTPUT_EXPRESSION  "n,10\no,+\nn,5\no,/\nn,10\n"
 //
-//     ok(BUFFER_SIZE == 400,          "Buffer size set correct");
-//     ok(INPUT_FILE  == "input.txt",  "Input file set correct");
-//     ok(OUTPUT_FILE == "tokens.txt", "Output file set correct");
+//     ok(BUFFER_SIZE == 400,                   "Buffer size set correct");
+//     ok(INPUT_FILE  == "input.txt",           "Input file set correct");
+//     ok(OUTPUT_FILE == "output/tokens.txt",   "Output file set correct");
 //
 //     char *line;
 //     size_t len;
