@@ -13,3 +13,7 @@ MUL
 2
 DIV
 ADD
+4
+3
+MOD
+ADD
