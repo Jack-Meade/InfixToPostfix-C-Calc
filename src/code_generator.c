@@ -5,6 +5,27 @@
 #include <string.h>
 #include "write.h"
 
+
+/*
+parse_file
+---DESCRIPTION---
+Reads in file & creates formatted version as it goes through, line by line.
+
+---INPUT---
+*fp: pointer to file
+
+---OUTPUT---
+Formatted string:
+-25
+7.25
+3
+MUL
+2
+EXP
+SUB
+320
+...
+*/
 char *parse_file(FILE*fp){
     char *parsed;                            //Hold parsed characters
     char *chars;                             //Input buffer Holds characters for getline()
