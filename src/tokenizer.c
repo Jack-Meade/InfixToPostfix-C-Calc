@@ -56,36 +56,33 @@ char *parse_file(FILE *fp) {
     //  decide if it should go in output or not
     while ((c = getc(fp)) != EOF) {
         switch (c) {
-            case '\n':
-            case ' ':
+            case '\n': case ' ':                                        // Skip over newline and spaces
                 break;
-            case '(':
-            case ')':                                                   // Parentheses go straight to output
+
+            case '(': case ')':                                         // Parentheses go straight to output
                 end_of_token(&new_num, output, &op, c, &illegal_operator);
                 if (c == ')') { illegal_operator = 0; }                 // e.g (2+3)^3 is a valid infix expression
                 break;
-            case '+':
-            case '-':
-            case '*':
-            case '/':
-            case '^':
-            case '%':
+
+            case '+': case '-': case '*':
+            case '/': case '^': case '%':
                 if (illegal_operator) {                                 // If operator shouldn't be current char
                     //  If the number is already defined as negative or the operator isn't a minus
                     if (num_is_neg || c != '-') {
                         fclose(fp);
                         fprintf(stderr, "Error: Invalid infix expression\n");
-                        exit(2);
+                        exit(1);
                     } else {                                            // Else expression indicates number is negative
                         num_is_neg = 1;
                     }
                 } else {                                                // Else put operator in output
                     end_of_token(&new_num, output, &op, c, &illegal_operator);
                     num_is_neg = 0;
-
                 }
                 break;
-            default:
+
+            case '0': case '1': case '2': case '3': case '4':
+            case '5': case '6': case '7': case '8': case '9': case '.':
                 if (new_num) {                                          //  If first char in new num
                     new_num      = 0;                                   //   Set it so next char won't be set as a new num
                     output[++op] = 'n';                                 //   Set it's type
@@ -97,12 +94,18 @@ char *parse_file(FILE *fp) {
                 }
                 output[++op] = c;                                       // Place char in output
                 illegal_operator = 0;                                   // An operator is legal after a num
+                break;
+
+            default:                                                    // Illegal character if not caught above
+                fclose(fp);
+                fprintf(stderr, "Error: Invalid character in expression\n");
+                exit(1);
         }
     }
     if (illegal_operator || output[op] == '.' ) {                       // If last char was an operator or period
         fclose(fp);
         fprintf(stderr, "Error: Trailing operator/period in expression\n");
-        exit(3);
+        exit(1);
     }
     fclose(fp);
     output[++op] = '\n';
