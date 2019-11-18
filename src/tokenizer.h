@@ -50,7 +50,11 @@ o,+
 n,12.5
 
 */
-char *convert_file_to_tokens(FILE *fp) {
+char *convert_file_to_tokens(char *filename) {
+    FILE *fp = NULL;
+    if (!(fp = fopen(INPUT_FILE, "r"))) {                               // If cannot open input file
+        return ERROR_NO_INPUT;
+    }
     char *output = (char *)malloc(sizeof(char) * BUFFER_SIZE);          // Output used in I2P
     char c;                                                             // Current character
     int op = -1;                                                        // Pointer to current position in output
