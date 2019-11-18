@@ -44,7 +44,7 @@ Reads in file & creates formatted version as it goes through, character by chara
 *filename:                string to locate input file
 
 ---OUTPUT---
-Formatted string representing tokens, e.g:
+Error message or formatted string representing tokens, e.g:
 n,25
 o,+
 n,12.5
