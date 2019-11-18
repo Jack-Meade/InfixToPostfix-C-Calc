@@ -1,3 +1,5 @@
+// CS3500 Project - Code Generator
+// Conor Patrick Mc Donald, Daniels Leonards Bindemans, Jack Meade
 #include "code_generator.h"
 
 int main(int argc, char**argv) {
