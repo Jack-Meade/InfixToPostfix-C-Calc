@@ -1,7 +1,8 @@
 // CS3500 Project - Tokenizer Test Suite
 // Author: Jack Meade
 
-#include "src/tokenizer.h"
+#include "../src/tokenizer.h"
+#include <ctap.h>
 
 TESTS {
     #define TEST_INPUT_FILE         "tests/input.txt"
@@ -17,6 +18,6 @@ TESTS {
     is(line, TEST_INPUT_EXPRESSION, "Able to write files");
 
     FILE *fp2 = fopen(TEST_INPUT_FILE, "r");
-    char *test_output = parse_file(fp2);
+    char *test_output = convert_file_to_tokens(fp2);
     is(test_output, TEST_OUTPUT_EXPRESSION, "Able to tokenize input file");
 }
