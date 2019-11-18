@@ -131,7 +131,7 @@ int main(int argc, char**argv) {
 
 // Test suite
 // TESTS {
-//     #define TEST_INPUT_FILE         "tests/test_input.txt"
+//     #define TEST_INPUT_FILE         "tests/input.txt"
 //     #define TEST_INPUT_EXPRESSION   "10 +5/ 10"
 //     #define TEST_OUTPUT_EXPRESSION  "n,10\no,+\nn,5\no,/\nn,10\n"
 //
