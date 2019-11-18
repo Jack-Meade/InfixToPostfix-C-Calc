@@ -20,6 +20,7 @@ TESTS {
 
     char *test_result;
 
+    // Create test inputs
     char test_inputs[5][15] = {
         TEST_INVALID_EXPRESSION,
         TEST_INVALID_CHAR,
@@ -28,6 +29,7 @@ TESTS {
         TEST_EXPRESSION_INPUT
     };
 
+    // Create expected test outputs
     char test_outputs[5][50] = {
         ERROR_INVALID_EXPRESSION,
         ERROR_INVALID_CHAR,
@@ -36,6 +38,7 @@ TESTS {
         TEST_EXPRESSION_OUTPUT
     };
 
+    // Create test messages
     char test_messages[5][50] = {
         "Invalid expression in input file",
         "Invalid character in input file",
@@ -48,13 +51,14 @@ TESTS {
     test_result = convert_file_to_tokens(TEST_NO_INPUT);
     is(test_result, ERROR_NO_INPUT, "Input file not found");
 
-    // Go through tests, comparing result to expected output
+    // Go through test inputs, comparing result to expected output, and display descriptive message
     for (int i = 0; i < 5; i++) {
         write_file(TEST_INPUT_FILE, test_inputs[i]);
         test_result = convert_file_to_tokens(TEST_INPUT_FILE);
         is(test_result, test_outputs[i], test_messages[i]);
     }
 
+    // Testing if token can be properly marked
     int new_num          = 1;
     test_result          = (char *)malloc(5);
     int op               = -1;
