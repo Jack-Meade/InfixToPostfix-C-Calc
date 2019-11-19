@@ -1,4 +1,4 @@
-// CS3500 Project - Code Generator
+// CS3500 Project - Code Generator header
 // Conor Patrick Mc Donald, Daniels Leonards Bindemans, Jack Meade
 // Author: Daniels Bindemans
 #include <stdio.h>
