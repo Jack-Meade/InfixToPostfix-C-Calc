@@ -4,7 +4,7 @@
 #include "vm.h"
 
 int main(int argc, char**argv) {
-    float result = execute(INPUT_FILE);
-    printf("%4.4f\n", result);
+    char *result = execute(INPUT_FILE);
+    printf("%s\n", result);
     return 0;
 }
