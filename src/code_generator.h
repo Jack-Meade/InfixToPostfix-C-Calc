@@ -1,13 +1,14 @@
 // CS3500 Project - Code Generator
 // Conor Patrick Mc Donald, Daniels Leonards Bindemans, Jack Meade
+// Author: Daniels Bindemans
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "write.h"
 
 #define BUFFER_SIZE             400
-#define INPUT_FILE              "../output/i2p.txt"
-#define OUTPUT_FILE             "../output/code.txt"
+#define INPUT_FILE              "output/i2p.txt"
+#define OUTPUT_FILE             "output/code.txt"
 
 #define ERROR_INVALID_OPERAND   "Error: Invalid Operand\n"
 #define ERROR_NULL_INPUT        "Error: Input file doesn't exist\n"
