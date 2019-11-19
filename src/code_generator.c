@@ -1,5 +1,6 @@
-// CS3500 Project - Code Generator
+// CS3500 Project - Code Generator compiler
 // Conor Patrick Mc Donald, Daniels Leonards Bindemans, Jack Meade
+// Author: Daniels Bindemans
 #include "code_generator.h"
 
 int main(int argc, char**argv) {
