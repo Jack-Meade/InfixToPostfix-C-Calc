@@ -11,6 +11,5 @@ TESTS {
     #define TEST_OUTPUT     -46.75
 
     write_file(TEST_INPUT_FILE, TEST_INPUT);
-    FILE *fp1 = fopen(TEST_INPUT_FILE, "r");
     ok(TEST_OUTPUT == execute(TEST_INPUT_FILE), "Able to execute instructions");
 }
