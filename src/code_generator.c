@@ -30,6 +30,7 @@ char *parse_file(char *input_file){
     fclose(fp);                     //close the file
     return str;                     //return the new string.
 }
+<<<<<<< HEAD
 
 
 // 
@@ -38,3 +39,5 @@ char *parse_file(char *input_file){
 //     write_file(OUTPUT_FILE, str);            //write to new file the parsed data
 //     return 0;
 // }
+=======
+>>>>>>> 3e0a7f818fea7759f0bdb7896e1013f73ad982c9

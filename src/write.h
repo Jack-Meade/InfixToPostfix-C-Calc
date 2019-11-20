@@ -1,6 +1,8 @@
+// CS3500 Project - Write Header
+// Conor Patrick Mc Donald, Daniels Leonards Bindemans, Jack Meade
+
+#include <stdio.h>
+#include <stdlib.h>
+
 // Prints formatted output to file
-void write_file(char *output_file, char *output) {
-    FILE *fp = NULL;
-    if ((fp = fopen(output_file, "w")))   { fprintf(fp, "%s", output); fclose(fp); }
-    else                                  { fprintf(stderr, "Error: Could not create %s\n", output_file); exit(1); }
-}
+void write_file(char *output_file, char *output);
