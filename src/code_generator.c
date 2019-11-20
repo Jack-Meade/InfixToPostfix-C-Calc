@@ -3,7 +3,7 @@
 // Author: Daniels Bindemans
 #include "code_generator.h"
 
-char *parse_file(char *input_file){
+char *generate_code(char *input_file){
     FILE *fp = NULL;                                                //Try to open file if file is null
     if (!(fp = fopen(input_file, "r"))) {return ERROR_NULL_INPUT;}  //Then the file doesn't exist
     char *parsed;                                                   //Hold parsed characters

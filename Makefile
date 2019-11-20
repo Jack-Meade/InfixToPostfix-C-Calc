@@ -1,9 +1,9 @@
-all: tokenizer
+target: i2pcalc
 
-tokenizer: input.txt src/main.c src/tokenizer.c src/write.c
-	@gcc -o src/tokenizer src/main.c src/tokenizer.c src/write.c
-	@src/tokenizer
-	@rm src/tokenizer
+i2pcalc: input.txt src/main.c src/tokenizer.c src/i2p.c src/code_generator.c src/vm.c src/write.c
+	@gcc -o i2pcalc src/main.c src/tokenizer.c src/i2p.c src/code_generator.c src/vm.c src/write.c -lm
+	@./i2pcalc
+	@rm ./tokenizer
 
 test:
 	@gcc -o tests/tokenizer.t tests/tokenizer.c

@@ -7,8 +7,8 @@
 #include "write.h"
 
 #define BUFFER_SIZE                 400
-#define INPUT_FILE                  "output/i2p.txt"
-#define OUTPUT_FILE                 "output/code.txt"
+#define CG_INPUT_FILE               "output/i2p.txt"
+#define CG_OUTPUT_FILE              "output/code.txt"
 
 #define ERROR_INVALID_OPERAND       "Error: Invalid Operand\n"
 #define ERROR_NULL_INPUT            "Error: Input file doesn't exist\n"
@@ -33,4 +33,4 @@ SUB
 320
 ...
 */
-char *parse_file(char *input_file);
+char *generate_code(char *input_file);
