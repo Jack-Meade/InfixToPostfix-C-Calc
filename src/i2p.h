@@ -15,6 +15,8 @@ and then outputs into a file called i2p.txt */
 #define ERROR_BAD_INPUT "Error: Input contained an invalid character \n"
 #define ERROR_MISMATCHED_BRACKETS "Error: Uneven number of opening and closing brackets\n"
 #define ERROR_EXPECTED_OPERATOR "Error: Expected operator after Operand or Opening Bracket\n"
+#define ERROR_MISSING_OPERATOR "Error: Expected operator after number\n"
+#define ERROR_TOO_MANY_OPERATORS "Error: Operator immediately followed by another operator"
 
 /*--DESCRIPTION--
 // Removes the top char from the stack and returns it.
