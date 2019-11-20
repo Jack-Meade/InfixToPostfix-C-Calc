@@ -6,12 +6,13 @@
 #include <string.h>
 #include "write.h"
 
-#define BUFFER_SIZE             400
-#define INPUT_FILE              "output/i2p.txt"
-#define OUTPUT_FILE             "output/code.txt"
+#define BUFFER_SIZE                 400
+#define INPUT_FILE                  "output/i2p.txt"
+#define OUTPUT_FILE                 "output/code.txt"
 
-#define ERROR_INVALID_OPERAND   "Error: Invalid Operand\n"
-#define ERROR_NULL_INPUT        "Error: Input file doesn't exist\n"
+#define ERROR_INVALID_OPERAND       "Error: Invalid Operand\n"
+#define ERROR_NULL_INPUT            "Error: Input file doesn't exist\n"
+#define ERROR_INVALID_FILE_FORMAT   "Error: Invalid input format from file"
 /*
 parse_file
 ---DESCRIPTION---
@@ -32,7 +33,10 @@ SUB
 320
 ...
 */
-char *parse_file(FILE*fp){
+char *parse_file(char *input_file){
+    FILE *fp = NULL;                                                //Try to open file if file is null
+    if (!(fp = fopen(input_file, "r"))) {return ERROR_NULL_INPUT;}  //Then the file doesn't exist
+
     char *parsed;                            //Hold parsed characters
     char *chars;                             //Input buffer Holds characters for getline()
     size_t len = 0;                          //Holds the size of the input buffer,
@@ -47,11 +51,10 @@ char *parse_file(FILE*fp){
             else if (strcmp(s, "/\n") == 0)  {parsed = "DIV\n";}
             else if (strcmp(s, "+\n") == 0)  {parsed = "ADD\n";}
             else if (strcmp(s, "-\n") == 0)  {parsed = "SUB\n";}
-            else{
-                printf("%s\n",ERROR_INVALID_OPERAND);                //else the operand isn't supported
-            }
+            else    {return ERROR_INVALID_OPERAND;}                //else the operand isn't supported
         }
-        else{parsed = strsep(&chars, ",");}         //else if it isn't an operand then it is a number
+        else if(strcmp(s,"n") == 0) {parsed = strsep(&chars, ",");         //else if it isn't an operand then it is a number
+        else{return ERROR_INVALID_FILE_FORMAT;} //TO IMPLEMENT!!!!!!!!!!!!!
         strcat(str, parsed);                        //concat the number or operand to buffer 'str'.
     }
     strcat(str,"\0");               //at the end we add null character.
