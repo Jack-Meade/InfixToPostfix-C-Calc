@@ -11,7 +11,9 @@
 #define INPUT_FILE       "output/code.txt"
 
 #define ERROR_NO_INPUT      "Error: Cannot read input file\n"
-#define ERROR_INVALID_NUM   "Error: Improper number instruction\n"
+#define ERROR_INVALID_INST  "Error: Invalid instruction\n"
+#define ERROR_ZERO_DIV      "Error: Cannot divide by zero\n"
+#define ERROR_MISSING_INST  "Error: Could not complete calculation\n"
 
 /*
 ---DESCRIPTION---
@@ -39,16 +41,23 @@ char *execute(char *filename) {
         else if (strcmp(instruction, "ADD\n") == 0) { operands[op-1] =       operands[op-1] + operands[op]; op--; }
         else if (strcmp(instruction, "SUB\n") == 0) { operands[op-1] =       operands[op-1] - operands[op]; op--; }
         else if (strcmp(instruction, "MUL\n") == 0) { operands[op-1] =       operands[op-1] * operands[op]; op--; }
-        else if (strcmp(instruction, "DIV\n") == 0) { operands[op-1] =       operands[op-1] / operands[op]; op--; }
-        else {                                                  // Else we have a number and need to put into stack
+        else if (strcmp(instruction, "DIV\n") == 0) {
+            // Cannot divide if second operand is 0
+            if (operands[op] == 0)  { return ERROR_ZERO_DIV; }
+            else                    { operands[op-1] = operands[op-1] / operands[op]; op--; }
+        } else {                                                // Else we have a number and need to put into stack
             instruction[strcspn(instruction, "\n")] = 0;        // Removes newline character from instruction
 
-            // Error checking for valid number instruction
-            char digit;
+            char c;
+            char last_char;
             int i = -1;
-            while ((digit = instruction[++i]) != '\0') {
-                // If digit is not a digit, period, or minus, it is not part of a vaild number
-                if ((digit < '0' || digit > '9') && digit != '.' && digit != '-') { return ERROR_INVALID_NUM; }
+            while ((c = instruction[++i]) != '\0') {
+                if (((c < '0' || c > '9') && c != '.' && c != '-')  // not a digit/period/minus,
+                    || (c == '.' && last_char == '.')               // two last chars are periods, or
+                    || (c == '-' && last_char == '-')) {            // two last chars are minuses
+                        return ERROR_INVALID_INST;
+                    }
+                last_char = c;
             }
             operands[++op] = strtof(instruction, NULL);
         }
@@ -56,6 +65,7 @@ char *execute(char *filename) {
     free(instruction);
     fclose(fp);
 
+    if (op != 0) { return ERROR_MISSING_INST; }                 // Result should be last in stack, missing needed inst
     // Convert result to string
     char *result = (char *)malloc(sizeof(char) * LENGTH_OF_RESULT);
     sprintf(result, "%4.4f", operands[op]);
