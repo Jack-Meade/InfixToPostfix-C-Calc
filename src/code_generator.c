@@ -32,9 +32,9 @@ char *parse_file(char *input_file){
 }
 
 
-
-int main(int argc, char**argv) {
-    char *str = parse_file(INPUT_FILE);      //parse the file
-    write_file(OUTPUT_FILE, str);            //write to new file the parsed data
-    return 0;
-}
+// 
+// int main(int argc, char**argv) {
+//     char *str = parse_file(INPUT_FILE);      //parse the file
+//     write_file(OUTPUT_FILE, str);            //write to new file the parsed data
+//     return 0;
+// }
