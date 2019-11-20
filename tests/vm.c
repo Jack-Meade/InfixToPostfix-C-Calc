@@ -48,10 +48,13 @@ TESTS {
     };
 
     is(execute(TEST_NO_INPUT), ERROR_NO_INPUT, "Input file not found");
-
-    for (int i = 0; i < 6; i++) {
-        write_file(TEST_INPUT_FILE, test_inputs[i]);
-        test_result = execute(TEST_INPUT_FILE);
-        is(test_result, test_outputs[i], test_messages[i]);
-    }
+    write_file("buffer", TEST_ZERO_DIV);
+    is(execute("buffer"), ERROR_ZERO_DIV, "Zero Div");
+    // for (int i = 0; i < 6; i++) {
+    //     char buffer[20];
+    //     sprintf(buffer, "testfile%d", i);
+    //     write_file(buffer, test_inputs[i]);
+    //     test_result = execute(TEST_INPUT_FILE);
+    //     is(test_result, test_outputs[i], test_messages[i]);
+    // }
 }
