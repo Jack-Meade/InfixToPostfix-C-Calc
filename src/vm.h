@@ -1,3 +1,5 @@
+#ifndef VM_H
+#define VM_H
 // CS3500 Project - VM Header
 // Author: Jack Meade
 
@@ -26,3 +28,5 @@ Executes VM using code from Code Generator.
 Result of calculation from instructions
 */
 char *execute(char *filename);
+
+#endif

@@ -1,3 +1,5 @@
+#ifndef I2P_H
+#define I2P_H
 // CS3500 Project - Infix To Postfix
 // Conor Patrick Mc Donald
 /*------------------------------DESCRIPTION---------------------------------------
@@ -71,3 +73,5 @@ char array of postfix expression is returned
 
 */
 char *infix_to_postfix(char*filename);
+
+#endif

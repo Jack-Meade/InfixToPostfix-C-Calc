@@ -1,3 +1,5 @@
+#ifndef TOKEN_H
+#define TOKEN_H
 // CS3500 Project - Tokenizer Header
 // Author: Jack Meade
 
@@ -43,3 +45,5 @@ n,12.5
 
 */
 char *convert_file_to_tokens(char *filename);
+
+#endif

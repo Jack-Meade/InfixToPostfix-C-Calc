@@ -1,3 +1,5 @@
+#ifndef CG_H
+#define CG_H
 // CS3500 Project - Code Generator header
 // Conor Patrick Mc Donald, Daniels Leonards Bindemans, Jack Meade
 // Author: Daniels Bindemans
@@ -34,3 +36,5 @@ SUB
 ...
 */
 char *generate_code(char *input_file);
+
+#endif
