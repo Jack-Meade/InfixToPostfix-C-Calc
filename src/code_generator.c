@@ -10,6 +10,7 @@ char *generate_code(char *input_file){
     char *chars;                                                    //Input buffer Holds characters for getline()
     size_t len = 0;                                                 //Holds the size of the input buffer,
     char *str  = malloc(sizeof(char) * BUFFER_SIZE);                //Buffer with limited to 400 char.
+    memset(str, '\0', BUFFER_SIZE);                                 //Fixed bug where str would have file contents
     while (getline(&chars, &len, fp) != EOF){                       //While not at the end of the file
         char *s = strsep(&chars, ",");                              //Split the string ',' to get first part
         if (strcmp(s, "o") == 0){                                   //If it's 'o' then do operators
