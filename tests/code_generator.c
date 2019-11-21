@@ -12,7 +12,7 @@ TESTS {
     #define TEST__EXPECTED_OUTPUT "10\nADD\n5\nDIV\n10\n"
 
     write_file(TEST_INPUT_FILE, TEST_INPUT);
-    char* result = parse_file(TEST_INPUT_FILE);
+    char* result = generate_code(TEST_INPUT_FILE);
     diag("%s\n", result );
     is(result, TEST__EXPECTED_OUTPUT, "Expected result correct");
 }
