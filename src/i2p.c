@@ -55,6 +55,8 @@ char *infix_to_postfix(char *filename) {
     int op = -1; // cursor to keep track of position in output array
     int lp = -1;  // Line pointer for characters in a current line
     char operator;
+    int ob;
+    int cb;  // Counts brackets
 
     while (getline(&chars, &len, fp) != EOF){
         char *s = strsep(&chars, ",");
@@ -83,16 +85,15 @@ char *infix_to_postfix(char *filename) {
             operator = s[0];
             if (operator == ')') {  // Must process what was between opening and closing brackets to keep correct precedence
                 prevchar = 'b';
+                cb++;
                 while(stack[top] != '(') { // Pop from stack til opening bracket found
-                    if (stack[top] == '\0'){ // Have reached end without finding '('
-                      return ERROR_MISMATCHED_BRACKETS; // Matching opening bracket not found
-                    }
                     push_operator(output, &op, stack, &top);
 
                 }
                 pop(stack, &top); // Pops ( from stack
 
             } else if (operator == '(') {
+                ob++;
                 prevchar = 'b';
                 push(stack, &top, operator);
 
@@ -109,7 +110,7 @@ char *infix_to_postfix(char *filename) {
         }
     }
     while (top != -1) { // Popping leftovers from stack
-      if (stack[top] == '(' || ')'){ //shouldn't be any brackets on stack at this point
+      if (stack[top] == ('(' || ')') || (cb != ob)){ //shouldn't be any brackets on stack at this point
         return ERROR_MISMATCHED_BRACKETS;
       }
         push_operator(output, &op, stack, &top); // push to output
