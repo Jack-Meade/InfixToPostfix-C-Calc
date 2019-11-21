@@ -7,9 +7,9 @@
 TESTS {
     // Defining test inputs/outputs to keep code cleaner
     #define TEST_INPUT_FILE         "tests/tokens.txt"
-    #define TEST_EXPRESSION_INPUT   "10+5/10"
+    #define TEST_EXPRESSION_INPUT   "n,10\no,+\nn,5\no,/\nn,10"
     #define TEST_EXPRESSION_OUTPUT  "n,10\no,+\nn,5\no,/\nn,10\n"
-    #define TEST_OPERATOR_INPUT     '+'
+    #define TEST_OPERATOR_INPUT     "o,+""
     #define TEST_OPERATOR_OUTPUT    "o,+\n"
     #define TEST_EXTRA_OPERATOR     "n,5\no,+\no,+\nn,5\n"
 
