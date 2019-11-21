@@ -20,41 +20,32 @@ TESTS {
 
     char *test_result;
 
-    char test_inputs[6][30] = {
-        TEST_INVALID_INST1,
-        TEST_INVALID_INST2,
-        TEST_INVALID_INST3,
-        TEST_INVALID_INST4,
+    char test_inputs[7][30] = {
         TEST_ZERO_DIV,
-        TEST_MISSING_INST
+        TEST_INVALID_INST1,
+        TEST_MISSING_INST,
+        TEST_INPUT
     };
 
-    char test_outputs[6][40] = {
-        ERROR_INVALID_INST,
-        ERROR_INVALID_INST,
-        ERROR_INVALID_INST,
-        ERROR_INVALID_INST,
+    char test_outputs[7][40] = {
         ERROR_ZERO_DIV,
-        ERROR_MISSING_INST
+        ERROR_INVALID_INST,
+        ERROR_MISSING_INST,
+        TEST_OUTPUT
     };
 
-    char test_messages[6][40] = {
-        "Incomplete instruction in input file",
-        "Invalid number in input file",
-        "Double period in input file",
-        "Double negative in input file",
+    char test_messages[7][40] = {
         "Zero division in input file",
-        "Missing instruction in input file"
+        "Incomplete instruction in input file",
+        "Missing instruction in input file",
+        "Able to execute instructions"
     };
 
-    is(execute(TEST_NO_INPUT), ERROR_NO_INPUT, "Input file not found");
-    write_file("buffer", TEST_ZERO_DIV);
-    is(execute("buffer"), ERROR_ZERO_DIV, "Zero Div");
-    // for (int i = 0; i < 6; i++) {
-    //     char buffer[20];
-    //     sprintf(buffer, "testfile%d", i);
-    //     write_file(buffer, test_inputs[i]);
-    //     test_result = execute(TEST_INPUT_FILE);
-    //     is(test_result, test_outputs[i], test_messages[i]);
-    // }
+    is(execute(TEST_NO_INPUT), ERROR_NO_INPUT_VM, "Input file not found");
+
+    for (int i = 0; i < 4; i++) {
+        write_file(TEST_INPUT_FILE, test_inputs[i]);
+        test_result = execute(TEST_INPUT_FILE);
+        is(test_result, test_outputs[i], test_messages[i]);
+    }
 }
