@@ -78,6 +78,6 @@ char *convert_file_to_tokens(char *filename) {
         return ERROR_TRAILING_OPERATOR;
     }
     fclose(fp);
-    output[++op] = '\n';
+    if (output[op] != '\n') {output[++op] = '\n';}                      // Adds newline if not at end of file
     return output;
 }
