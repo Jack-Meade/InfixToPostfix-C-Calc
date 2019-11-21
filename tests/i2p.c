@@ -9,7 +9,7 @@ TESTS {
     #define TEST_INPUT_FILE         "tests/tokens.txt"
     #define TEST_EXPRESSION_INPUT   "n,10\no,+\nn,5\no,/\nn,10"
     #define TEST_EXPRESSION_OUTPUT  "n,10\no,+\nn,5\no,/\nn,10\n"
-    #define TEST_OPERATOR_INPUT     "o,+""
+    #define TEST_OPERATOR_INPUT     "o,+"
     #define TEST_OPERATOR_OUTPUT    "o,+\n"
     #define TEST_EXTRA_OPERATOR     "n,5\no,+\no,+\nn,5\n"
 
@@ -23,7 +23,7 @@ TESTS {
     char *test_result;
 
     // Create test inputs
-    char test_inputs[4][15] = {
+    char test_inputs[4][25] = {
         TEST_BAD_INPUT,
         TEST_MISMATCHED_BRACKETS,
         TEST_MISSING_OPERATOR,
@@ -39,7 +39,7 @@ TESTS {
     };
 
     // Create test messages
-    char test_messages[4][80] = {
+    char test_messages[4][50] = {
         "Invalid character in input file",
         "Missing opening or closing bracket",
         "Missing operator after bracket",
