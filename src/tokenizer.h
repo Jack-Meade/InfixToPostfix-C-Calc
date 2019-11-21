@@ -7,10 +7,10 @@
 #include <string.h>
 
 #define BUFFER_SIZE 400                                                 // Memory allocation for full buffer size
-#define INPUT_FILE  "input.txt"
-#define OUTPUT_FILE "output/tokens.txt"
+#define TOKEN_INPUT_FILE  "input.txt"
+#define TOKEN_OUTPUT_FILE "output/tokens.txt"
 
-#define ERROR_NO_INPUT              "Error: Cannot read input file\n"
+#define ERROR_NO_INPUT_TOKEN        "Error: Cannot read input file\n"
 #define ERROR_INVALID_EXPRESSION    "Error: Invalid infix expression\n"
 #define ERROR_INVALID_CHAR          "Error: Invalid character in expression\n"
 #define ERROR_TRAILING_OPERATOR     "Error: Trailing operator/period in expression\n"

@@ -49,7 +49,7 @@ TESTS {
 
     // Need to test outside loop as it changes input file
     test_result = convert_file_to_tokens(TEST_NO_INPUT);
-    is(test_result, ERROR_NO_INPUT, "Input file not found");
+    is(test_result, ERROR_NO_INPUT_TOKEN, "Input file not found");
 
     // Go through test inputs, comparing result to expected output, and display descriptive message
     for (int i = 0; i < 5; i++) {

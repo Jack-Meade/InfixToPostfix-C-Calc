@@ -41,7 +41,11 @@ void push_operator(char *output, int *op, char *stack, int *top) {
     output[++*op] = '\n';
 }
 
-char *parse_file(FILE*fp){
+char *infix_to_postfix(char *filename) {
+    FILE *fp = NULL;
+    fp = fopen(filename,"r");
+    if (fp == NULL) { return ERROR_NO_INPUT_I2P; }
+
     char *stack = (char *)malloc(100);  // The stack
     int top = -1; // initalise the top of stack
     char prevchar;
@@ -73,7 +77,11 @@ char *parse_file(FILE*fp){
         } else if (strcmp(s, "o") == 0){ //operands go straight to the stack
 
             s = strsep(&chars, ",");
+<<<<<<< HEAD
             if(prevchar == 's' && (s[0] == '+' || s[0] == '-' || s[0] == '*' || s[0] == '/' || s[0] == '%')){
+=======
+            if(prevchar == 's' && s == '+' || s == '-' || s == '*' || s == '/' || s == '%'){
+>>>>>>> f4f98c535faeecda635e4c41c8fbdfe2a529909a
               return ERROR_TOO_MANY_OPERATORS;
             }
             operator = s[0];
@@ -114,6 +122,7 @@ char *parse_file(FILE*fp){
     free(stack);
     fclose(fp);
     return output;
+<<<<<<< HEAD
   }
 
   void write_file(char *output_file, char *output) {
@@ -152,4 +161,6 @@ int main(int argc, char const *argv[]) {
     }
     // Generate postfix from file
     write_file("output/i2p.txt", parse_file(fp));
+=======
+>>>>>>> f4f98c535faeecda635e4c41c8fbdfe2a529909a
 }

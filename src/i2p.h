@@ -7,12 +7,13 @@ and then outputs into a file called i2p.txt */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "write.h"
-// #include <ctap.h>
 
-#define INPUT_FILE "tokens.txt"
-#define OUTPUT_FILE "output/i2p.txt"
-#define ERROR_BAD_INPUT "Error: Input contained an invalid character \n"
+#define I2P_INPUT_FILE "output/tokens.txt"
+#define I2P_OUTPUT_FILE "output/i2p.txt"
+#define ERROR_NO_INPUT_I2P "Error: Couldn't open input file\n"
+#define ERROR_BAD_INPUT "Error: Input contained an invalid character\n"
 #define ERROR_MISMATCHED_BRACKETS "Error: Uneven number of opening and closing brackets\n"
 #define ERROR_EXPECTED_OPERATOR "Error: Expected operator after Operand or Opening Bracket\n"
 #define ERROR_MISSING_OPERATOR "Error: Expected operator after number\n"
@@ -55,7 +56,7 @@ int precedence(char x);
 /*--DESCRIPTION--
 Writes operator onto output, in a CSV format
 */
-void push_operator();
+void push_operator(char *output, int *op, char *stack, int *top);
 
 
 
@@ -69,4 +70,4 @@ postfix expression and then returns the finished postfix expression as array.
 char array of postfix expression is returned
 
 */
-char *parse_file(FILE*fp);
+char *infix_to_postfix(char*filename);

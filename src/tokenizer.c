@@ -16,7 +16,7 @@ void end_of_token(int *new_num, char *output, int *op, char c, int *illegal_oper
 char *convert_file_to_tokens(char *filename) {
     FILE *fp = NULL;
     if (!(fp = fopen(filename, "r"))) {                                 // If cannot open input file
-        return ERROR_NO_INPUT;
+        return ERROR_NO_INPUT_TOKEN;
     }
     char *output = (char *)malloc(sizeof(char) * BUFFER_SIZE);          // Output used in I2P
     char c;                                                             // Current character
