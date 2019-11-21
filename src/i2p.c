@@ -77,7 +77,11 @@ char *infix_to_postfix(char *filename) {
         } else if (strcmp(s, "o") == 0){ //operands go straight to the stack
 
             s = strsep(&chars, ",");
+<<<<<<< HEAD
+            if(prevchar == 's' && (s[0] == '+' || s[0] == '-' || s[0] == '*' || s[0] == '/' || s[0] == '%')){
+=======
             if(prevchar == 's' && s == '+' || s == '-' || s == '*' || s == '/' || s == '%'){
+>>>>>>> f4f98c535faeecda635e4c41c8fbdfe2a529909a
               return ERROR_TOO_MANY_OPERATORS;
             }
             operator = s[0];
@@ -118,4 +122,45 @@ char *infix_to_postfix(char *filename) {
     free(stack);
     fclose(fp);
     return output;
+<<<<<<< HEAD
+  }
+
+  void write_file(char *output_file, char *output) {
+      FILE *fp = NULL;
+      if ((fp = fopen(output_file, "w")))   { fprintf(fp, "%s", output); fclose(fp); }
+      else                                  { fprintf(stderr, "Error: Could not create %s\n", output_file); exit(1); }
+  }
+int main(int argc, char const *argv[]) {
+    //opening the file
+    char *output;
+    FILE *fp = NULL;
+    fp = fopen("output/tokens.txt","r");
+    if (fp == NULL){
+        fprintf(stderr, "File does not exist.\n");
+        return 1;
+    }
+    else{
+        output = parse_file(fp);
+        if (strcmp(output, ERROR_BAD_INPUT) == 0){
+
+          fprintf(stderr, "%s\n", ERROR_BAD_INPUT); return 1;
+          }
+        else if(strcmp(output, ERROR_MISMATCHED_BRACKETS) == 0){
+
+          fprintf(stderr, "%s\n", ERROR_MISMATCHED_BRACKETS);return 1;
+        }
+        else if(strcmp(output, ERROR_EXPECTED_OPERATOR) == 0){
+
+          fprintf(stderr, "%s\n", ERROR_EXPECTED_OPERATOR);return 1;
+        }
+        else if(strcmp(output, ERROR_MISMATCHED_BRACKETS) == 0){
+
+          fprintf(stderr, "%s\n", ERROR_MISMATCHED_BRACKETS);return 1;
+        }
+
+    }
+    // Generate postfix from file
+    write_file("output/i2p.txt", parse_file(fp));
+=======
+>>>>>>> f4f98c535faeecda635e4c41c8fbdfe2a529909a
 }
