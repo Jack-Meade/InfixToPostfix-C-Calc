@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "write.c"
+#include "write.h"
 
 #define BUFFER_SIZE                 400
 #define CG_INPUT_FILE               "output/i2p.txt"
