@@ -10,7 +10,7 @@
 #define LENGTH_OF_RESULT 100
 #define VM_INPUT_FILE       "output/code.txt"
 
-#define ERROR_NO_INPUT      "Error: Cannot read input file\n"
+#define ERROR_NO_INPUT_VM   "Error: Cannot read input file\n"
 #define ERROR_INVALID_INST  "Error: Invalid instruction\n"
 #define ERROR_ZERO_DIV      "Error: Cannot divide by zero\n"
 #define ERROR_MISSING_INST  "Error: Could not complete calculation\n"

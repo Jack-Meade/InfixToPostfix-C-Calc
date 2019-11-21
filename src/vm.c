@@ -10,7 +10,7 @@ char *execute(char *filename) {
     int op = -1;                                                // Pointer to current operand in stack
     size_t len = 0;                                             // Pointer to size of buffer (needed for getline())
 
-    if (!(fp = fopen(filename, "r"))) { return ERROR_NO_INPUT; }// If file not found, exit with error
+    if (!(fp = fopen(filename, "r"))) { return ERROR_NO_INPUT_VM; }// If file not found, exit with error
 
     while ((getline(&instruction, &len, fp)) != EOF) {          // While not at end of code generated
         // Determine next instruction
