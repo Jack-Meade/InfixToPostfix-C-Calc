@@ -29,7 +29,7 @@ and then outputs into a file called i2p.txt */
 *top int Keeps track of top of stack
 
 --OUTPUT--
-char
+char (from top of the stack)
 
 */
 char pop(char *stack, int *top);
@@ -57,6 +57,12 @@ int precedence(char x);
 
 /*--DESCRIPTION--
 Writes operator onto output, in a CSV format
+
+--INPUT--
+*output char
+*op int
+*stack char
+*top int
 */
 void push_operator(char *output, int *op, char *stack, int *top);
 

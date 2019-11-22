@@ -8,7 +8,7 @@ and then outputs into a file called i2p.txt */
 
 char pop(char *stack, int *top) {
     char top_of_stack = stack[*top];
-    stack[*top]= '\0';
+    stack[*top]= '\0';  // mark new top of stack with null terminator
     --*top;
     return top_of_stack;  // Return what what the top of stack and decrement stack cursor by 1
 }
@@ -18,7 +18,7 @@ void push(char *stack, int *top, char x){ // Add next char to top of stack
 }
 
 int precedence(char x){
-  /*Exponent has highest precedence, Non operators(Numbers, brackets) have 0 precedence*/
+  /*Exponent has highest precedence, Non operators(Numbers, brackets) have lowest (0) precedence*/
     switch(x) {
         case '^':
             return 3; break;
@@ -80,12 +80,12 @@ char *infix_to_postfix(char *filename) {
 
             s = strsep(&chars, ",");
             if(prevchar == 's' && (s[0] == '+' || s[0] == '-' || s[0] == '*' || s[0] == '/' || s[0] == '%')){
-              return ERROR_TOO_MANY_OPERATORS;
+              return ERROR_TOO_MANY_OPERATORS; // If there were two operators in a row
             }
             operator = s[0];
             if (operator == ')') {  // Must process what was between opening and closing brackets to keep correct precedence
-                prevchar = 'b';
-                cb++;
+                prevchar = 'b';  // Sets prev character to bracket
+                cb++;  // Keeps track of closing bracket count
                 while(stack[top] != '(') { // Pop from stack til opening bracket found
                     push_operator(output, &op, stack, &top);
 
@@ -93,8 +93,8 @@ char *infix_to_postfix(char *filename) {
                 pop(stack, &top); // Pops ( from stack
 
             } else if (operator == '(') {
-                ob++;
-                prevchar = 'b';
+                ob++;  // keeps track of opening brackets
+                prevchar = 'b';  // bracket
                 push(stack, &top, operator);
 
             } else { /*pop off all the operators that have same or higher precedence than cur operator to output*/
@@ -106,16 +106,16 @@ char *infix_to_postfix(char *filename) {
             }
 
         } else {
-            return ERROR_BAD_INPUT;
+            return ERROR_BAD_INPUT;  // if 'n' or 'o' preceeding char was missing
         }
     }
     while (top != -1) { // Popping leftovers from stack
       if (stack[top] == ('(' || ')') || (cb != ob)){ //shouldn't be any brackets on stack at this point
-        return ERROR_MISMATCHED_BRACKETS;
+        return ERROR_MISMATCHED_BRACKETS;  // Unven number of opening and closing brackets
       }
         push_operator(output, &op, stack, &top); // push to output
     }
-
+    // Free up memory, close the file and return the char array (output)
     free(stack);
     fclose(fp);
     return output;
