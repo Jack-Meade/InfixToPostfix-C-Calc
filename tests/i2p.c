@@ -1,7 +1,7 @@
 // CS3500 Project - i2p Tests
 // Author: Conor McDonald
 
-#include "../src/i2p.h"
+#include "../src/headers/i2p.h"
 #include <ctap.h>
 
 TESTS {

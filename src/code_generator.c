@@ -1,7 +1,7 @@
 // CS3500 Project - Code Generator compiler
 // Conor Patrick Mc Donald, Daniels Leonards Bindemans, Jack Meade
 // Author: Daniels Bindemans
-#include "code_generator.h"
+#include "headers/code_generator.h"
 
 char *generate_code(char *input_file){
     FILE *fp = NULL;                                                //Try to open file if file is null

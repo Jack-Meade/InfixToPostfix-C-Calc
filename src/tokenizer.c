@@ -1,7 +1,7 @@
 // CS3500 Project - Tokenizer
 // Author: Jack Meade
 
-#include "tokenizer.h"
+#include "headers/tokenizer.h"
 
 void end_of_token(int *new_num, char *output, int *op, char c, int *illegal_operator) {
     if (!*new_num) { output[++*op] = '\n'; }                            // Mark end of token by starting newline

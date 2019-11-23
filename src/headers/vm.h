@@ -10,7 +10,7 @@
 
 #define STACK_SIZE       200
 #define LENGTH_OF_RESULT 100
-#define VM_INPUT_FILE       "output/code.txt"
+#define VM_INPUT_FILE    "output/code.txt"
 
 #define ERROR_NO_INPUT_VM   "Error: Cannot read input file\n"
 #define ERROR_INVALID_INST  "Error: Invalid instruction\n"

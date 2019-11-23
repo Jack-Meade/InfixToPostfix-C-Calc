@@ -1,8 +1,8 @@
 // CS3500 Project - VM Test Suite
 // Author: Jack Meade
 
-#include "../src/vm.h"
-#include "../src/write.h"
+#include "../src/headers/vm.h"
+#include "../src/headers/write.h"
 #include <ctap.h>
 
 TESTS {
