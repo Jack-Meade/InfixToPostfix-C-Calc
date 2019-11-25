@@ -30,7 +30,6 @@ and then outputs into a file called i2p.txt */
 
 --OUTPUT--
 char (from top of the stack)
-
 */
 char pop(char *stack, int *top);
 

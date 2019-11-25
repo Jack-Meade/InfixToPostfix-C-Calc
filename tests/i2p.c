@@ -11,9 +11,8 @@ TESTS {
     #define TEST_EXPRESSION_OUTPUT  "n,10\no,+\nn,5\no,/\nn,10\n"
     #define TEST_OPERATOR_INPUT     "o,+"
     #define TEST_OPERATOR_OUTPUT    "o,+\n"
+    
     #define TEST_EXTRA_OPERATOR     "n,5\no,+\no,+\nn,5\n"
-
-    //output
     #define TEST_NO_INPUT           "tests/in.txt"
     #define TEST_BAD_INPUT          "10 +5/ c10"
     #define TEST_MISMATCHED_BRACKETS "o,(\no,(\no,)\n"

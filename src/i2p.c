@@ -61,7 +61,7 @@ char *infix_to_postfix(char *filename) {
     while (getline(&chars, &len, fp) != EOF){
         char *s = strsep(&chars, ",");
         if (strcmp(s, "n") == 0) { // numbers are put directly into output queue in CSV format
-            if(prevchar == 'n'){
+            if(prevchar == 'n'){ // Two numbers in a row is not possible in valid input
               return ERROR_MISSING_OPERATOR;
             }
             prevchar = 'n';
@@ -106,7 +106,7 @@ char *infix_to_postfix(char *filename) {
             }
 
         } else {
-            return ERROR_BAD_INPUT;  // if 'n' or 'o' preceeding char was missing
+            return ERROR_BAD_INPUT;  // if 'n' or 'o' preceeding char was missing from input
         }
     }
     while (top != -1) { // Popping leftovers from stack
