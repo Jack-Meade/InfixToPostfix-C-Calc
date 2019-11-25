@@ -133,3 +133,6 @@ a number or an operator shortened to three characters (e.g. * will be MUL). An e
 Each line in the file will be an instruction on what the VM should do, such
 as load a number or ADD two from the stack. The VM can read these and perform the instructions by having it follow
 rules assigned to them.
+
+# Data Flow Diagram
+![Diagram which shows the data flowing from one component to another](data_flow.png "Data Flow Diagram")
