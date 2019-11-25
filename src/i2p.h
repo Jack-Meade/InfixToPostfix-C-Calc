@@ -72,7 +72,7 @@ void push_operator(char *output, int *op, char *stack, int *top);
 // Reads in a file(tokens.txt) character by character and processes the infix expression to
 postfix expression and then returns the finished postfix expression as array.
 --INPUT--
-*fp Pointer to the input file
+*fp Is the name of the input file
 
 --OUTPUT--
 char array of postfix expression is returned
