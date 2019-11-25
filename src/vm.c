@@ -1,7 +1,7 @@
 // CS3500 Project - VM
 // Author: Jack Meade
 
-#include "vm.h"
+#include "headers/vm.h"
 
 char *execute(char *filename) {
     FILE *fp;

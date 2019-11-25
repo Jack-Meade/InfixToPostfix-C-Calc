@@ -2,7 +2,7 @@
 // Conor Patrick Mc Donald, Daniels Leonards Bindemans, Jack Meade
 // Author: Daniels Bindemans
 
-#include "../src/code_generator.h"
+#include "../src/headers/code_generator.h"
 #include <ctap.h>
 
 TESTS {

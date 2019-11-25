@@ -1,7 +1,7 @@
 // CS3500 Project - Write
 // Conor Patrick Mc Donald, Daniels Leonards Bindemans, Jack Meade
 
-#include "write.h"
+#include "headers/write.h"
 
 void write_file(char *output_file, char *output) {
     FILE *fp = NULL;

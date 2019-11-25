@@ -1,7 +1,7 @@
 // CS3500 Project - Tokenizer Test Suite
 // Author: Jack Meade
 
-#include "../src/tokenizer.h"
+#include "../src/headers/tokenizer.h"
 #include <ctap.h>
 
 TESTS {

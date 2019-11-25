@@ -1,10 +1,10 @@
 // CS3500 Project
 // Conor Patrick Mc Donald, Daniels Leonards Bindemans, Jack Meade
 
-#include "tokenizer.h"
-#include "i2p.h"
-#include "code_generator.h"
-#include "vm.h"
+#include "headers/tokenizer.h"
+#include "headers/i2p.h"
+#include "headers/code_generator.h"
+#include "headers/vm.h"
 
 int main(int argc, char**argv) {
     // Tokenizer

@@ -4,7 +4,7 @@
 i2p.c takes an input file consisting of infix expressions, converts to postfix format
 and then outputs into a file called i2p.txt */
 
-#include "i2p.h"
+#include "headers/i2p.h"
 
 char pop(char *stack, int *top) {
     char top_of_stack = stack[*top];
