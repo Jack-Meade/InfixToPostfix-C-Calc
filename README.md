@@ -1,4 +1,4 @@
-# cs3500project
+# InfixToPostfix-C-Calc
 Implementation of Infix to Postfix calculator for CS3500 C project
 
 by Conor Patrick Mc Donald, Daniels Leonards Bindemans, and Jack Meade
